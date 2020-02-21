@@ -3,18 +3,25 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92413B3023FEBF7F00C9005A /* CarPlateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413B2F23FEBF7F00C9005A /* CarPlateView.swift */; };
+		92413B3223FF1E2200C9005A /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413B3123FF1E2200C9005A /* Color+Ext.swift */; };
 		92A00B3723F8329E0029C002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B3623F8329E0029C002 /* AppDelegate.swift */; };
 		92A00B3923F8329E0029C002 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B3823F8329E0029C002 /* SceneDelegate.swift */; };
 		92A00B3C23F8329E0029C002 /* CarPlate.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B3A23F8329E0029C002 /* CarPlate.xcdatamodeld */; };
-		92A00B3E23F8329E0029C002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B3D23F8329E0029C002 /* ContentView.swift */; };
 		92A00B4023F832A00029C002 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92A00B3F23F832A00029C002 /* Assets.xcassets */; };
 		92A00B4323F832A00029C002 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92A00B4223F832A00029C002 /* Preview Assets.xcassets */; };
 		92A00B4623F832A00029C002 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92A00B4423F832A00029C002 /* LaunchScreen.storyboard */; };
 		92A00B5123F832A00029C002 /* CarPlateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B5023F832A00029C002 /* CarPlateTests.swift */; };
+		92A00B5F23F8331B0029C002 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B5E23F8331B0029C002 /* SearchView.swift */; };
+		92A00B6223F8340A0029C002 /* CombineFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = 92A00B6123F8340A0029C002 /* CombineFeedback */; };
+		92A00B6423F8340A0029C002 /* CombineFeedbackUI in Frameworks */ = {isa = PBXBuildFile; productRef = 92A00B6323F8340A0029C002 /* CombineFeedbackUI */; };
+		92A00B6623F83EA30029C002 /* SearchListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B6523F83EA30029C002 /* SearchListRow.swift */; };
+		92A00B6923F89CDE0029C002 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B6823F89CDE0029C002 /* String+Ext.swift */; };
+		92A00B6C23F8A2D40029C002 /* CarInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B6B23F8A2D40029C002 /* CarInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,11 +35,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		92413B2F23FEBF7F00C9005A /* CarPlateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlateView.swift; sourceTree = "<group>"; };
+		92413B3123FF1E2200C9005A /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		92A00B3323F8329E0029C002 /* CarPlate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarPlate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92A00B3623F8329E0029C002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92A00B3823F8329E0029C002 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		92A00B3B23F8329E0029C002 /* CarPlate.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CarPlate.xcdatamodel; sourceTree = "<group>"; };
-		92A00B3D23F8329E0029C002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		92A00B3F23F832A00029C002 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92A00B4223F832A00029C002 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		92A00B4523F832A00029C002 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -40,6 +48,10 @@
 		92A00B4C23F832A00029C002 /* CarPlateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarPlateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		92A00B5023F832A00029C002 /* CarPlateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlateTests.swift; sourceTree = "<group>"; };
 		92A00B5223F832A00029C002 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92A00B5E23F8331B0029C002 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		92A00B6523F83EA30029C002 /* SearchListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListRow.swift; sourceTree = "<group>"; };
+		92A00B6823F89CDE0029C002 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		92A00B6B23F8A2D40029C002 /* CarInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92A00B6223F8340A0029C002 /* CombineFeedback in Frameworks */,
+				92A00B6423F8340A0029C002 /* CombineFeedbackUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,13 +95,9 @@
 		92A00B3523F8329E0029C002 /* CarPlate */ = {
 			isa = PBXGroup;
 			children = (
-				92A00B3623F8329E0029C002 /* AppDelegate.swift */,
-				92A00B3823F8329E0029C002 /* SceneDelegate.swift */,
-				92A00B3D23F8329E0029C002 /* ContentView.swift */,
-				92A00B3F23F832A00029C002 /* Assets.xcassets */,
-				92A00B4423F832A00029C002 /* LaunchScreen.storyboard */,
-				92A00B4723F832A00029C002 /* Info.plist */,
-				92A00B3A23F8329E0029C002 /* CarPlate.xcdatamodeld */,
+				92A00B5D23F832F20029C002 /* App */,
+				92A00B5C23F832E50029C002 /* Resources */,
+				92A00B5B23F832DF0029C002 /* Source */,
 				92A00B4123F832A00029C002 /* Preview Content */,
 			);
 			path = CarPlate;
@@ -110,6 +120,55 @@
 			path = CarPlateTests;
 			sourceTree = "<group>";
 		};
+		92A00B5B23F832DF0029C002 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				92A00B6A23F8A2C30029C002 /* Domain */,
+				92A00B6723F89CCE0029C002 /* Extension */,
+				92A00B5E23F8331B0029C002 /* SearchView.swift */,
+				92A00B6523F83EA30029C002 /* SearchListRow.swift */,
+				92413B2F23FEBF7F00C9005A /* CarPlateView.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		92A00B5C23F832E50029C002 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				92A00B3F23F832A00029C002 /* Assets.xcassets */,
+				92A00B4423F832A00029C002 /* LaunchScreen.storyboard */,
+				92A00B3A23F8329E0029C002 /* CarPlate.xcdatamodeld */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		92A00B5D23F832F20029C002 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				92A00B3623F8329E0029C002 /* AppDelegate.swift */,
+				92A00B3823F8329E0029C002 /* SceneDelegate.swift */,
+				92A00B4723F832A00029C002 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		92A00B6723F89CCE0029C002 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				92A00B6823F89CDE0029C002 /* String+Ext.swift */,
+				92413B3123FF1E2200C9005A /* Color+Ext.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		92A00B6A23F8A2C30029C002 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				92A00B6B23F8A2D40029C002 /* CarInfo.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,6 +185,10 @@
 			dependencies = (
 			);
 			name = CarPlate;
+			packageProductDependencies = (
+				92A00B6123F8340A0029C002 /* CombineFeedback */,
+				92A00B6323F8340A0029C002 /* CombineFeedbackUI */,
+			);
 			productName = CarPlate;
 			productReference = 92A00B3323F8329E0029C002 /* CarPlate.app */;
 			productType = "com.apple.product-type.application";
@@ -176,6 +239,9 @@
 				Base,
 			);
 			mainGroup = 92A00B2A23F8329E0029C002;
+			packageReferences = (
+				92A00B6023F8340A0029C002 /* XCRemoteSwiftPackageReference "CombineFeedback" */,
+			);
 			productRefGroup = 92A00B3423F8329E0029C002 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -211,9 +277,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92A00B6923F89CDE0029C002 /* String+Ext.swift in Sources */,
+				92A00B6C23F8A2D40029C002 /* CarInfo.swift in Sources */,
+				92413B3223FF1E2200C9005A /* Color+Ext.swift in Sources */,
+				92A00B5F23F8331B0029C002 /* SearchView.swift in Sources */,
+				92A00B6623F83EA30029C002 /* SearchListRow.swift in Sources */,
+				92413B3023FEBF7F00C9005A /* CarPlateView.swift in Sources */,
 				92A00B3723F8329E0029C002 /* AppDelegate.swift in Sources */,
 				92A00B3C23F8329E0029C002 /* CarPlate.xcdatamodeld in Sources */,
-				92A00B3E23F8329E0029C002 /* ContentView.swift in Sources */,
 				92A00B3923F8329E0029C002 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -370,7 +441,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CarPlate/Preview Content\"";
 				DEVELOPMENT_TEAM = BB6356MAF8;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = CarPlate/Info.plist;
+				INFOPLIST_FILE = CarPlate/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -390,7 +461,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CarPlate/Preview Content\"";
 				DEVELOPMENT_TEAM = BB6356MAF8;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = CarPlate/Info.plist;
+				INFOPLIST_FILE = CarPlate/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -477,6 +548,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		92A00B6023F8340A0029C002 /* XCRemoteSwiftPackageReference "CombineFeedback" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sergdort/CombineFeedback";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		92A00B6123F8340A0029C002 /* CombineFeedback */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 92A00B6023F8340A0029C002 /* XCRemoteSwiftPackageReference "CombineFeedback" */;
+			productName = CombineFeedback;
+		};
+		92A00B6323F8340A0029C002 /* CombineFeedbackUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 92A00B6023F8340A0029C002 /* XCRemoteSwiftPackageReference "CombineFeedback" */;
+			productName = CombineFeedbackUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		92A00B3A23F8329E0029C002 /* CarPlate.xcdatamodeld */ = {
