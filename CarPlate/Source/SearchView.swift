@@ -10,15 +10,22 @@ import SwiftUI
 
 struct SearchView: View {
     let list: [CarInfo]
+    @State var searchText: String = ""
+    
     var body: some View {
         NavigationView {
-            ScrollView {
-                ForEach(list) { item in
-                    SearchListRow(item: item)
+            VStack {
+                ScrollView {
+                    SearchBar(text: $searchText)
+                    ForEach(list) { item in
+                        SearchListRow(item: item)
+                    }
+                    .padding([.leading, .trailing])
                 }
-                .padding([.leading, .trailing])
+                .background(Color.searchListViewBg)
             }
-        }.navigationBarTitle("Hi")
+            .navigationBarTitle("Search by carplate")
+        }
     }
 }
 
@@ -31,3 +38,4 @@ struct SearchView_Previews: PreviewProvider {
         
     }
 }
+

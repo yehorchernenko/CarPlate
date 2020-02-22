@@ -31,7 +31,7 @@ struct CarPlateView: View {
         VStack(alignment: .center, spacing: 2) {
             flag
             countryText
-        }
+        }.padding(.leading, 1)
     }
     
     var body: some View {
@@ -39,7 +39,6 @@ struct CarPlateView: View {
             country
                 .frame(maxWidth: 10, maxHeight: .infinity)
                 .background(Color.carPlateCountry)
-                .padding(.leading, 1)
             
             Text(number.uppercased())
                 .font(.headline).padding([.leading, .trailing], 4)
@@ -54,10 +53,10 @@ struct CarPlateView: View {
 struct CarPlateView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CarPlateView(number: "АХ5141НТ")
+            CarPlateView(number: "АХ 5141 НТ")
                 .previewLayout(.fixed(width: 200, height: 60))
                 .colorScheme(.light)
-            CarPlateView(number: "АХ5141НТ")
+            CarPlateView(number: "АХ 5141 НТ")
                 .colorScheme(.dark)
                 .background(Color.black)
                 .previewLayout(.fixed(width: 200, height: 60))

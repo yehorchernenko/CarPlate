@@ -10,5 +10,6 @@ import SwiftUI
 
 extension Color {
     static let carPlateCountry = Color("CarPlateCountry")
-    static let searchRowBg = Color("SearchRowBg")
+    static let searchListViewBg = Color("SearchListViewBg")
+    static let searchListRowShadow = Color("SearchListRowShadow")
 }

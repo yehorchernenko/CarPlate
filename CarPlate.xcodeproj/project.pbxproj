@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,11 +17,10 @@
 		92A00B4623F832A00029C002 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92A00B4423F832A00029C002 /* LaunchScreen.storyboard */; };
 		92A00B5123F832A00029C002 /* CarPlateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B5023F832A00029C002 /* CarPlateTests.swift */; };
 		92A00B5F23F8331B0029C002 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B5E23F8331B0029C002 /* SearchView.swift */; };
-		92A00B6223F8340A0029C002 /* CombineFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = 92A00B6123F8340A0029C002 /* CombineFeedback */; };
-		92A00B6423F8340A0029C002 /* CombineFeedbackUI in Frameworks */ = {isa = PBXBuildFile; productRef = 92A00B6323F8340A0029C002 /* CombineFeedbackUI */; };
 		92A00B6623F83EA30029C002 /* SearchListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B6523F83EA30029C002 /* SearchListRow.swift */; };
 		92A00B6923F89CDE0029C002 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B6823F89CDE0029C002 /* String+Ext.swift */; };
 		92A00B6C23F8A2D40029C002 /* CarInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B6B23F8A2D40029C002 /* CarInfo.swift */; };
+		92B76B7624014D09003F2ACA /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B76B7524014D09003F2ACA /* SearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +51,7 @@
 		92A00B6523F83EA30029C002 /* SearchListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListRow.swift; sourceTree = "<group>"; };
 		92A00B6823F89CDE0029C002 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		92A00B6B23F8A2D40029C002 /* CarInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarInfo.swift; sourceTree = "<group>"; };
+		92B76B7524014D09003F2ACA /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,8 +59,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92A00B6223F8340A0029C002 /* CombineFeedback in Frameworks */,
-				92A00B6423F8340A0029C002 /* CombineFeedbackUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,7 +125,7 @@
 				92A00B6723F89CCE0029C002 /* Extension */,
 				92A00B5E23F8331B0029C002 /* SearchView.swift */,
 				92A00B6523F83EA30029C002 /* SearchListRow.swift */,
-				92413B2F23FEBF7F00C9005A /* CarPlateView.swift */,
+				92B76B7424014CEE003F2ACA /* SharedViews */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -169,6 +167,15 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		92B76B7424014CEE003F2ACA /* SharedViews */ = {
+			isa = PBXGroup;
+			children = (
+				92413B2F23FEBF7F00C9005A /* CarPlateView.swift */,
+				92B76B7524014D09003F2ACA /* SearchBar.swift */,
+			);
+			path = SharedViews;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -186,8 +193,6 @@
 			);
 			name = CarPlate;
 			packageProductDependencies = (
-				92A00B6123F8340A0029C002 /* CombineFeedback */,
-				92A00B6323F8340A0029C002 /* CombineFeedbackUI */,
 			);
 			productName = CarPlate;
 			productReference = 92A00B3323F8329E0029C002 /* CarPlate.app */;
@@ -240,7 +245,6 @@
 			);
 			mainGroup = 92A00B2A23F8329E0029C002;
 			packageReferences = (
-				92A00B6023F8340A0029C002 /* XCRemoteSwiftPackageReference "CombineFeedback" */,
 			);
 			productRefGroup = 92A00B3423F8329E0029C002 /* Products */;
 			projectDirPath = "";
@@ -284,6 +288,7 @@
 				92A00B6623F83EA30029C002 /* SearchListRow.swift in Sources */,
 				92413B3023FEBF7F00C9005A /* CarPlateView.swift in Sources */,
 				92A00B3723F8329E0029C002 /* AppDelegate.swift in Sources */,
+				92B76B7624014D09003F2ACA /* SearchBar.swift in Sources */,
 				92A00B3C23F8329E0029C002 /* CarPlate.xcdatamodeld in Sources */,
 				92A00B3923F8329E0029C002 /* SceneDelegate.swift in Sources */,
 			);
@@ -369,7 +374,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -423,7 +428,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -548,30 +553,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		92A00B6023F8340A0029C002 /* XCRemoteSwiftPackageReference "CombineFeedback" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sergdort/CombineFeedback";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.6.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		92A00B6123F8340A0029C002 /* CombineFeedback */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 92A00B6023F8340A0029C002 /* XCRemoteSwiftPackageReference "CombineFeedback" */;
-			productName = CombineFeedback;
-		};
-		92A00B6323F8340A0029C002 /* CombineFeedbackUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 92A00B6023F8340A0029C002 /* XCRemoteSwiftPackageReference "CombineFeedback" */;
-			productName = CombineFeedbackUI;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		92A00B3A23F8329E0029C002 /* CarPlate.xcdatamodeld */ = {

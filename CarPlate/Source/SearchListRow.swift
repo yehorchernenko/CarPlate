@@ -13,29 +13,33 @@ struct SearchListRow: View {
     
     var carInfo: some View {
         HStack {
-            Image(item.brand.valueOrEmpty)
-                .resizable().scaledToFit()
-                .frame(width: 30, height: 30)
-            
             Text("\(item.brand.valueOrEmpty) \(item.model.valueOrEmpty)")
+//            Text("\(NumberFormatter().string(from: NSNumber(value: item.makeYear ?? 0)) ?? "")")
             Spacer()
-            Text("\(NumberFormatter().string(from: NSNumber(value: item.makeYear ?? 0)) ?? "")")
         }
     }
     
     var body: some View {
-        VStack {
-            carInfo
-            HStack {
+        HStack {
+            VStack(alignment: .leading) {
+                HStack {
+                    Image("KIA")
+                        .resizable().scaledToFit()
+                        .frame(width: 30, height: 30)
+                    carInfo
+                }
                 CarPlateView(number: item.nRegNew)
-                Spacer()
-                Text("Color: \(item.color.valueOrEmpty)")
             }
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Color: Red")
+                Text("Year: 2013")
+                Text("Capacity: 1984")
+            }.font(.caption)
         }
         .padding()
         .background(Color.primary.colorInvert())
         .cornerRadius(12)
-        .shadow(color: Color(.systemGray3), radius: 5, x: 0, y: 0)
+        .shadow(color: Color.searchListRowShadow, radius: 10, x: 0, y: 0)
     }
 }
 
@@ -50,3 +54,9 @@ struct SearchListRow_Previews: PreviewProvider {
     }
 }
 
+
+extension View {
+    func troto() {
+        
+    }
+}
