@@ -9,12 +9,11 @@
 import SwiftUI
 
 struct SearchListRow: View {
-    let item: CarInfo
+    let item: CarInfoDisplayModel
     
     var carInfo: some View {
         HStack {
-            Text("\(item.brand.valueOrEmpty) \(item.model.valueOrEmpty)")
-//            Text("\(NumberFormatter().string(from: NSNumber(value: item.makeYear ?? 0)) ?? "")")
+            Text("\(item.name)")
             Spacer()
         }
     }
@@ -28,7 +27,7 @@ struct SearchListRow: View {
                         .frame(width: 30, height: 30)
                     carInfo
                 }
-                CarPlateView(number: item.nRegNew)
+                CarPlateView(number: item.carPlateNumber)
             }
             VStack(alignment: .leading, spacing: 4) {
                 Text("Color: Red")
@@ -46,17 +45,11 @@ struct SearchListRow: View {
 struct SearchListRow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SearchListRow(item: CarInfo.list.first!).colorScheme(.light)
+            SearchListRow(item: CarInfoDisplayModel(item: .fixture())).colorScheme(.light)
                 .padding()
-            SearchListRow(item: CarInfo.list.last!).colorScheme(.dark).background(Color.black).padding()
+            SearchListRow(item: CarInfoDisplayModel(item: .fixture())).colorScheme(.dark)
+            .padding()
         }
         .previewLayout(.fixed(width: 350, height: 100))
-    }
-}
-
-
-extension View {
-    func troto() {
-        
     }
 }

@@ -11,7 +11,8 @@ import SwiftUI
 struct SearchBar: UIViewRepresentable {
     typealias UIViewType = UISearchBar
     
-    @Binding var text : String
+    @Binding var text: String
+    var searchAction: () -> Void
     
     func searchBar(_ searchBar: UISearchBar,
                    textDidChange searchText: String) {
@@ -23,6 +24,7 @@ struct SearchBar: UIViewRepresentable {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.delegate = context.coordinator
         searchBar.backgroundImage = UIImage()
+        
         return searchBar
     }
     
@@ -31,13 +33,16 @@ struct SearchBar: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(text: $text)
+        return Coordinator(text: $text, searchAction: searchAction)
     }
     
     class Coordinator : NSObject, UISearchBarDelegate {
         @Binding var text : String
-        init(text : Binding<String>) {
+        var searchAction: () -> Void
+        
+        init(text : Binding<String>, searchAction: @escaping () -> Void) {
             _text = text
+            self.searchAction = searchAction
         }
         
         func searchBar(_ searchBar: UISearchBar,
@@ -45,12 +50,19 @@ struct SearchBar: UIViewRepresentable {
             text = searchText
         }
         
+        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            searchAction()
+        }
+        
+        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+            text = ""
+        }
     }
 }
 
 
 struct SearchBar_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBar(text: .constant("")).previewLayout(.fixed(width: 350, height: 50))
+        SearchBar(text: .constant(""), searchAction: { }).previewLayout(.fixed(width: 350, height: 50))
     }
 }

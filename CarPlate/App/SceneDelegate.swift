@@ -24,7 +24,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
-        let contentView = SearchView(list: [CarInfo.list, CarInfo.list, CarInfo.list, CarInfo.list].flatMap { $0 }).environment(\.managedObjectContext, context)
+        let searchService = SearchService(agent: NetworkAgent())
+        let viewModel = SearchListViewModel(searchService: searchService)
+        let contentView = SearchListView(viewModel: viewModel).environment(\.managedObjectContext, context)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
