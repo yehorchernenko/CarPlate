@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		92048458240B13EE00A3035C /* CarDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92048457240B13EE00A3035C /* CarDetailsView.swift */; };
+		9229D4712413CD1400E52B68 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9229D4702413CD1400E52B68 /* UIApplication+Ext.swift */; };
 		92413B3023FEBF7F00C9005A /* CarPlateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413B2F23FEBF7F00C9005A /* CarPlateView.swift */; };
 		92413B3223FF1E2200C9005A /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413B3123FF1E2200C9005A /* Color+Ext.swift */; };
 		92A00B3723F8329E0029C002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B3623F8329E0029C002 /* AppDelegate.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		92048457240B13EE00A3035C /* CarDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarDetailsView.swift; sourceTree = "<group>"; };
+		9229D4702413CD1400E52B68 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
 		92413B2F23FEBF7F00C9005A /* CarPlateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlateView.swift; sourceTree = "<group>"; };
 		92413B3123FF1E2200C9005A /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		92A00B3323F8329E0029C002 /* CarPlate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarPlate.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,6 +190,7 @@
 			children = (
 				92A00B6823F89CDE0029C002 /* String+Ext.swift */,
 				92413B3123FF1E2200C9005A /* Color+Ext.swift */,
+				9229D4702413CD1400E52B68 /* UIApplication+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				92E27EE92407BF40009D3A8B /* Endpoint.swift in Sources */,
 				92A00B6923F89CDE0029C002 /* String+Ext.swift in Sources */,
 				92B76B7C24014ECD003F2ACA /* SearchListViewModel.swift in Sources */,
+				9229D4712413CD1400E52B68 /* UIApplication+Ext.swift in Sources */,
 				92A00B6C23F8A2D40029C002 /* CarInfo.swift in Sources */,
 				92E27EE72407BF2C009D3A8B /* NetworkAgent.swift in Sources */,
 				92413B3223FF1E2200C9005A /* Color+Ext.swift in Sources */,
