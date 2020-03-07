@@ -11,22 +11,26 @@ import Combine
 struct SearchListView: View {
     @ObservedObject var viewModel: SearchListViewModel
     
+    var table: some View {
+        VStack {
+            ScrollView {
+                SearchBar(text: $viewModel.searchText, searchAction: self.viewModel.onSearchTouched)
+                ForEach(viewModel.list) { item in
+                    NavigationLink(destination: CarDetailsView(details: item)) {
+                        SearchListRow(item: item)
+                    }.buttonStyle(PlainButtonStyle())
+                    
+                }
+                .padding([.leading, .trailing])
+            }
+            .background(Color.searchListViewBg)
+        }
+    }
+    
     var body: some View {
         NavigationView {
             ZStack {
-                VStack {
-                    ScrollView {
-                        SearchBar(text: $viewModel.searchText, searchAction: self.viewModel.onSearchTouched)
-                        ForEach(viewModel.list) { item in
-                            NavigationLink(destination: CarDetailsView(details: item)) {
-                                SearchListRow(item: item)
-                            }.buttonStyle(PlainButtonStyle())
-                            
-                        }
-                        .padding([.leading, .trailing])
-                    }
-                    .background(Color.searchListViewBg)
-                }
+                table
                 ActivityIndicator(isAnimating: $viewModel.isLoading)
             }
             .navigationBarTitle("Search by carplate")

@@ -20,7 +20,11 @@ struct CarInfoDisplayModel: Identifiable {
     }
     
     var name: String {
-        return "\(item.brand.valueOrEmpty) \(item.model.valueOrEmpty)"
+        if item.brand.valueOrEmpty.contains(item.model.valueOrEmpty) {
+            return item.brand.valueOrEmpty
+        } else {
+            return "\(item.brand.valueOrEmpty) \(item.model.valueOrEmpty)"
+        }
     }
     
     var carPlateNumber: String {

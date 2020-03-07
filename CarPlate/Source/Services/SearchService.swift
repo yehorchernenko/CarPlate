@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 protocol SearchServiceType {
-    func search(byCarPlate carPlate: String) -> AnyPublisher<[CarInfo], Error>
+    func search(byCarPlate carPlate: String) -> AnyPublisher<CarInfo, Error>
 }
 
 class SearchService: SearchServiceType {
@@ -20,7 +20,7 @@ class SearchService: SearchServiceType {
         self.agent = agent
     }
     
-    func search(byCarPlate carPlate: String) -> AnyPublisher<[CarInfo], Error> {
+    func search(byCarPlate carPlate: String) -> AnyPublisher<CarInfo, Error> {
         let request = Endpoint.search(byCarPlate: carPlate).request
         return agent.run(request: request).map(\.value).eraseToAnyPublisher()
     }

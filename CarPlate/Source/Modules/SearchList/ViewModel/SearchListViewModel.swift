@@ -11,36 +11,38 @@ import Foundation
 
 class SearchListViewModel: ObservableObject {
     private let searchService: SearchServiceType
+    private let storageService: StorageServiceType
     private var token: Cancellable?
     @Published var list = [CarInfoDisplayModel]()
     @Published var searchText = ""
     @Published var isLoading = false
     
-    init(searchService: SearchService) {
+    init(searchService: SearchService, storageService: StorageServiceType) {
         self.searchService = searchService
+        self.storageService = storageService
     }
     
     func onSearchTouched() {
         isLoading.toggle()
         token?.cancel()
         token = searchService.search(byCarPlate: searchText.uppercased())
-            .map { list in
-                list.map { CarInfoDisplayModel(item: $0) }}
+            .map {
+                self.storageService.save(carInfo: $0)
+                return CarInfoDisplayModel(item: $0) }
             .sink(receiveCompletion: { _ in
                 self.isLoading.toggle()
-            }) { [weak self] list in
-                guard let first = list.first else { return }
-                self?.list.append(first)
+            }) { [weak self] info in
+                self?.list.append(info)
         }
     }
     
     func load() {
-        
+        list = storageService.retrieve().map { CarInfoDisplayModel(item: $0)}
     }
 }
 
 class SearchListViewModelMock: SearchListViewModel {
     init() {
-        super.init(searchService: SearchService(agent: NetworkAgent()))
+        super.init(searchService: SearchService(agent: NetworkAgent()), storageService: StorageService())
     }
 }
