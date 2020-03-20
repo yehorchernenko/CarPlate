@@ -12,9 +12,7 @@ struct SearchListView: View {
     @ObservedObject var viewModel: SearchListViewModel
     @State var showActionSheet: Bool = false
     @State var showCamera: Bool = false
-    @State var showPhotoLibrary: Bool = false { didSet {
-        print(showPhotoLibrary)
-        }}
+    @State var showPhotoLibrary: Bool = false
     
     var actionSheet: ActionSheet {
         ActionSheet(title: Text("Take a photo or choose exiting"), message: nil, buttons: [
@@ -34,11 +32,12 @@ struct SearchListView: View {
     
     var cameraNavigationLinks: some View {
         Group {
-            NavigationLink(destination: Text("Camera")
+            NavigationLink(destination: Color.black
                 .onDisappear(perform: {
                     self.showCamera = false
                 }), isActive: $showCamera, label: { EmptyView() })
-            NavigationLink(destination: Text("Photo")
+            
+            NavigationLink(destination: CarPlateRecognitionView()
                 .onDisappear(perform: {
                     self.showPhotoLibrary = false
                 }), isActive: $showPhotoLibrary, label: { EmptyView() })
@@ -78,8 +77,8 @@ struct SearchListView: View {
                 ActivityIndicator(isAnimating: $viewModel.isLoading)
                 cameraNavigationLinks
             }
-            .navigationBarTitle("Search by carplate")
-        }
+            .navigationBarTitle("Search by carplate", displayMode: .inline)
+            }
         .onAppear {
             self.viewModel.load()
         }
