@@ -33,6 +33,6 @@ enum Endpoint {
     }
     
     private var basePath: String {
-        return "http://192.168.31.189:3000/"
+        return "http://192.168.31.194:3000/"
     }
 }

@@ -16,6 +16,7 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
     @IBOutlet weak var recognizedTextLabel: UILabel!
     @IBOutlet weak var recognizedObjectImageView: UIImageView!
     @IBOutlet weak var imageView: UIImageView!
+    var originalImage: UIImage?
     
     // Layer into which to draw bounding box paths.
     var pathLayer: CALayer?
@@ -29,31 +30,22 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
         return .lightContent
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Tapping the image view brings up the photo picker.
-        let photoTap = UITapGestureRecognizer(target: self, action: #selector(promptPhoto))
-        self.view.addGestureRecognizer(photoTap)
-        
-        // Prompt user for a photo shortly after launch
-        perform(#selector(promptPhoto), with: nil, afterDelay: 0.1)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if imageView.image == nil {
-            promptPhoto()
+        guard let originalImage = originalImage else {
+            return
         }
-    }
-    
-    @objc
-    func promptPhoto() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        self.present(imagePicker, animated: true)
+        // Display image on screen.
+        show(originalImage)
+
+        // Convert from UIImageOrientation to CGImagePropertyOrientation.
+        let cgOrientation = CGImagePropertyOrientation(originalImage.imageOrientation)
+
+        // Fire off request based on URL of chosen photo.
+        guard let cgImage = originalImage.cgImage else {
+            return
+        }
+        performVisionRequest(coreMLRequest, image: cgImage, orientation: cgOrientation)
     }
     
     // MARK: - Helper Methods
@@ -151,34 +143,6 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
         }
     }
     
-    // MARK: - UIImagePickerControllerDelegate
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        // Dismiss picker, returning to original root viewController.
-        dismiss(animated: true, completion: nil)
-    }
-    
-    internal func imagePickerController(_ picker: UIImagePickerController,
-                                        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        // Extract chosen image.
-        let originalImage: UIImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        
-        // Display image on screen.
-        show(originalImage)
-        
-        // Convert from UIImageOrientation to CGImagePropertyOrientation.
-        let cgOrientation = CGImagePropertyOrientation(originalImage.imageOrientation)
-        
-        // Fire off request based on URL of chosen photo.
-        guard let cgImage = originalImage.cgImage else {
-            return
-        }
-        performVisionRequest(coreMLRequest, image: cgImage, orientation: cgOrientation)
-        
-        // Dismiss the picker to return to original view controller.
-        dismiss(animated: true, completion: nil)
-    }
-    
     func show(_ image: UIImage) {
         
         // Remove previous paths & image
@@ -220,6 +184,8 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
         drawingLayer.anchorPoint = CGPoint.zero
         drawingLayer.position = CGPoint(x: xLayer, y: yLayer)
         drawingLayer.opacity = 0.5
+        drawingLayer.borderColor = UIColor.red.cgColor
+        drawingLayer.borderWidth = 2
         pathLayer = drawingLayer
         self.view.layer.addSublayer(pathLayer!)
     }
@@ -303,7 +269,7 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
     
     lazy var coreMLRequest: VNCoreMLRequest = {
         do {
-            let model = try VNCoreMLModel(for: CarPlateModel().model)
+            let model = try VNCoreMLModel(for: CarPlateDetector().model)
             let request = VNCoreMLRequest(model: model, completionHandler: self.handleCoreMLRequest)
             
             return request

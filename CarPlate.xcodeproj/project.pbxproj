@@ -12,6 +12,8 @@
 		9229D4762413E77900E52B68 /* CarPlateRecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9229D4742413E77900E52B68 /* CarPlateRecognitionViewController.swift */; };
 		9229D4772413E77900E52B68 /* CarPlateRecognitionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9229D4752413E77900E52B68 /* CarPlateRecognitionViewController.storyboard */; };
 		9229D4792413E80900E52B68 /* CarPlateRecognitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9229D4782413E80900E52B68 /* CarPlateRecognitionView.swift */; };
+		923DF8CD2425ED8500ECDEFB /* CarPlateDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 923DF8CC2425ED8500ECDEFB /* CarPlateDetector.mlmodel */; };
+		923DF8CF2425F0D100ECDEFB /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923DF8CE2425F0D100ECDEFB /* ImagePicker.swift */; };
 		92413B3023FEBF7F00C9005A /* CarPlateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413B2F23FEBF7F00C9005A /* CarPlateView.swift */; };
 		92413B3223FF1E2200C9005A /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413B3123FF1E2200C9005A /* Color+Ext.swift */; };
 		92A00B3723F8329E0029C002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B3623F8329E0029C002 /* AppDelegate.swift */; };
@@ -27,7 +29,6 @@
 		92A00B6C23F8A2D40029C002 /* CarInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B6B23F8A2D40029C002 /* CarInfo.swift */; };
 		92B76B7624014D09003F2ACA /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B76B7524014D09003F2ACA /* SearchBar.swift */; };
 		92B76B7C24014ECD003F2ACA /* SearchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B76B7B24014ECD003F2ACA /* SearchListViewModel.swift */; };
-		92CD4D9F2423AF7700A0CCBA /* CarPlateModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 92CD4D9E2423AF7700A0CCBA /* CarPlateModel.mlmodel */; };
 		92E2014B240BEA220021CE0D /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E2014A240BEA220021CE0D /* ActivityIndicator.swift */; };
 		92E2014E240BEE780021CE0D /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E2014D240BEE780021CE0D /* StorageService.swift */; };
 		92E27EE42407BEFF009D3A8B /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E27EE32407BEFF009D3A8B /* SearchService.swift */; };
@@ -53,6 +54,8 @@
 		9229D4742413E77900E52B68 /* CarPlateRecognitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarPlateRecognitionViewController.swift; sourceTree = "<group>"; };
 		9229D4752413E77900E52B68 /* CarPlateRecognitionViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CarPlateRecognitionViewController.storyboard; sourceTree = "<group>"; };
 		9229D4782413E80900E52B68 /* CarPlateRecognitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlateRecognitionView.swift; sourceTree = "<group>"; };
+		923DF8CC2425ED8500ECDEFB /* CarPlateDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CarPlateDetector.mlmodel; sourceTree = "<group>"; };
+		923DF8CE2425F0D100ECDEFB /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		92413B2F23FEBF7F00C9005A /* CarPlateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlateView.swift; sourceTree = "<group>"; };
 		92413B3123FF1E2200C9005A /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		92A00B3323F8329E0029C002 /* CarPlate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarPlate.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,7 +75,6 @@
 		92A00B6B23F8A2D40029C002 /* CarInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarInfo.swift; sourceTree = "<group>"; };
 		92B76B7524014D09003F2ACA /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		92B76B7B24014ECD003F2ACA /* SearchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListViewModel.swift; sourceTree = "<group>"; };
-		92CD4D9E2423AF7700A0CCBA /* CarPlateModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CarPlateModel.mlmodel; sourceTree = "<group>"; };
 		92E2014A240BEA220021CE0D /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		92E2014D240BEE780021CE0D /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		92E27EE32407BEFF009D3A8B /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
@@ -188,8 +190,8 @@
 		92A00B5C23F832E50029C002 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				92CD4D9E2423AF7700A0CCBA /* CarPlateModel.mlmodel */,
 				92A00B3F23F832A00029C002 /* Assets.xcassets */,
+				923DF8CC2425ED8500ECDEFB /* CarPlateDetector.mlmodel */,
 				92A00B4423F832A00029C002 /* LaunchScreen.storyboard */,
 				92A00B3A23F8329E0029C002 /* CarPlate.xcdatamodeld */,
 			);
@@ -231,6 +233,7 @@
 				92413B2F23FEBF7F00C9005A /* CarPlateView.swift */,
 				92B76B7524014D09003F2ACA /* SearchBar.swift */,
 				92E2014A240BEA220021CE0D /* ActivityIndicator.swift */,
+				923DF8CE2425F0D100ECDEFB /* ImagePicker.swift */,
 			);
 			path = SharedViews;
 			sourceTree = "<group>";
@@ -411,12 +414,13 @@
 				9229D4762413E77900E52B68 /* CarPlateRecognitionViewController.swift in Sources */,
 				92A00B6623F83EA30029C002 /* SearchListRow.swift in Sources */,
 				92413B3023FEBF7F00C9005A /* CarPlateView.swift in Sources */,
-				92CD4D9F2423AF7700A0CCBA /* CarPlateModel.mlmodel in Sources */,
 				92A00B3723F8329E0029C002 /* AppDelegate.swift in Sources */,
+				923DF8CD2425ED8500ECDEFB /* CarPlateDetector.mlmodel in Sources */,
 				92B76B7624014D09003F2ACA /* SearchBar.swift in Sources */,
 				92E27EE42407BEFF009D3A8B /* SearchService.swift in Sources */,
 				92A00B3C23F8329E0029C002 /* CarPlate.xcdatamodeld in Sources */,
 				92E27EEB2407BFD2009D3A8B /* CarInfoDisplayModel.swift in Sources */,
+				923DF8CF2425F0D100ECDEFB /* ImagePicker.swift in Sources */,
 				92A00B3923F8329E0029C002 /* SceneDelegate.swift in Sources */,
 				92E2014B240BEA220021CE0D /* ActivityIndicator.swift in Sources */,
 			);

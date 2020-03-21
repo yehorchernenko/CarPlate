@@ -11,36 +11,54 @@ import Combine
 struct SearchListView: View {
     @ObservedObject var viewModel: SearchListViewModel
     @State var showActionSheet: Bool = false
-    @State var showCamera: Bool = false
-    @State var showPhotoLibrary: Bool = false
+    @State var showImagePicker: Bool = false
+    @State var showRecognitionView: Bool = false
+    @State var imageToRecognize: UIImage?
+    @State var activePicker: ActivatePicker = .photoLibrary
+
+    enum ActivatePicker {
+        case photoLibrary, camera
+    }
     
     var actionSheet: ActionSheet {
         ActionSheet(title: Text("Take a photo or choose exiting"), message: nil, buttons: [
             .default(Text("Camera"), action: {
-                self.showActionSheet.toggle()
-                self.showCamera.toggle()
+                self.activePicker = .camera
+                self.showImagePicker.toggle()
             }),
             .default(Text("Photo Library"), action: {
-                self.showActionSheet.toggle()
-                self.showPhotoLibrary.toggle()
+                self.activePicker = .photoLibrary
+                self.showImagePicker.toggle()
             }),
             .destructive(Text("Cancel"), action: {
                 self.showActionSheet.toggle()
             })
         ])
     }
-    
+
+    var imagePicker: AnyView {
+        switch $activePicker.wrappedValue {
+        case .camera:
+            return AnyView(
+                ImagePicker(image: self.$imageToRecognize, sourceType: .camera)
+                    .onDisappear(perform: self.onImagePickerDisappear)
+            )
+        case .photoLibrary:
+            return AnyView(
+                ImagePicker(image: self.$imageToRecognize, sourceType: .photoLibrary)
+                    .onDisappear(perform: self.onImagePickerDisappear)
+            )
+        }
+    }
+
     var cameraNavigationLinks: some View {
         Group {
-            NavigationLink(destination: Color.black
+            NavigationLink(destination: CarPlateRecognitionView(image: $imageToRecognize)
                 .onDisappear(perform: {
-                    self.showCamera = false
-                }), isActive: $showCamera, label: { EmptyView() })
-            
-            NavigationLink(destination: CarPlateRecognitionView()
-                .onDisappear(perform: {
-                    self.showPhotoLibrary = false
-                }), isActive: $showPhotoLibrary, label: { EmptyView() })
+                    self.showRecognitionView = false
+                }),
+                           isActive: $showRecognitionView,
+                           label: { EmptyView() })
         }
     }
     
@@ -84,6 +102,15 @@ struct SearchListView: View {
         }
         .modifier(OnAppearDismissingKeyboard())
         .actionSheet(isPresented: $showActionSheet, content: { actionSheet })
+        .sheet(isPresented: $showImagePicker, content: { self.imagePicker })
+    }
+}
+
+private extension SearchListView {
+    func onImagePickerDisappear() {
+        if self.$imageToRecognize.wrappedValue != nil {
+            self.showRecognitionView = true
+        }
     }
 }
 
@@ -96,6 +123,3 @@ struct SearchView_Previews: PreviewProvider {
         
     }
 }
-
-
-
