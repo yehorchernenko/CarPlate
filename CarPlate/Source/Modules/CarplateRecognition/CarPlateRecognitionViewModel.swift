@@ -11,13 +11,26 @@ import Vision
 import CoreML
 
 class CarPlateRecognitionViewModel {
-    let service: ObjectDetectionServiceType = ObjectDetectionService()
+    let objectDetectionService: ObjectDetectionServiceType = ObjectDetectionService()
+    let ocrService: OCRServiceType = OCRService(postProcessor: CarPlateOCRPostProcessor())
 
-    func recognize(on image: UIImage, completion: @escaping ([VNRecognizedObjectObservation]) -> Void) {
-        service.detect(on: image) { result in
+    func detect(on image: UIImage, completion: @escaping ([VNRecognizedObjectObservation]) -> Void) {
+        objectDetectionService.detect(on: image) { result in
             switch result {
             case .success(let recognizedObjects):
                 completion(recognizedObjects)
+
+            case .failure(let error):
+                completion([])
+            }
+        }
+    }
+
+    func ocr(on image: UIImage, completion: @escaping ([String]) -> Void) {
+        ocrService.recognize(on: image) { result in
+            switch result {
+            case .success(let recognizedTexts):
+                completion(recognizedTexts)
 
             case .failure(let error):
                 completion([])

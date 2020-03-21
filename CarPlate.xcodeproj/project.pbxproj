@@ -38,6 +38,8 @@
 		92E27EE92407BF40009D3A8B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E27EE82407BF40009D3A8B /* Endpoint.swift */; };
 		92E27EEB2407BFD2009D3A8B /* CarInfoDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E27EEA2407BFD2009D3A8B /* CarInfoDisplayModel.swift */; };
 		92EB473C24264DD100B79E46 /* ObjectDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EB473B24264DD100B79E46 /* ObjectDetectionService.swift */; };
+		92EB473F24265B6F00B79E46 /* OCRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EB473E24265B6F00B79E46 /* OCRService.swift */; };
+		92EB474124265BA000B79E46 /* OCRTestPostProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EB474024265BA000B79E46 /* OCRTestPostProcessor.swift */; };
 		92FB59B924254EF200582144 /* CGImagePropertyOrientation+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FB59B824254EF200582144 /* CGImagePropertyOrientation+Ext.swift */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +89,8 @@
 		92E27EE82407BF40009D3A8B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		92E27EEA2407BFD2009D3A8B /* CarInfoDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarInfoDisplayModel.swift; sourceTree = "<group>"; };
 		92EB473B24264DD100B79E46 /* ObjectDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetectionService.swift; sourceTree = "<group>"; };
+		92EB473E24265B6F00B79E46 /* OCRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRService.swift; sourceTree = "<group>"; };
+		92EB474024265BA000B79E46 /* OCRTestPostProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRTestPostProcessor.swift; sourceTree = "<group>"; };
 		92FB59B824254EF200582144 /* CGImagePropertyOrientation+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImagePropertyOrientation+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -286,6 +290,7 @@
 		92E27EE22407BEEB009D3A8B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				92EB473D24265B6200B79E46 /* OCRService */,
 				92E27EE32407BEFF009D3A8B /* SearchService.swift */,
 				92E2014D240BEE780021CE0D /* StorageService.swift */,
 				92EB473B24264DD100B79E46 /* ObjectDetectionService.swift */,
@@ -300,6 +305,15 @@
 				92E27EE82407BF40009D3A8B /* Endpoint.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		92EB473D24265B6200B79E46 /* OCRService */ = {
+			isa = PBXGroup;
+			children = (
+				92EB473E24265B6F00B79E46 /* OCRService.swift */,
+				92EB474024265BA000B79E46 /* OCRTestPostProcessor.swift */,
+			);
+			path = OCRService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,11 +430,13 @@
 				92A00B6C23F8A2D40029C002 /* CarInfo.swift in Sources */,
 				92E27EE72407BF2C009D3A8B /* NetworkAgent.swift in Sources */,
 				92413B3223FF1E2200C9005A /* Color+Ext.swift in Sources */,
+				92EB473F24265B6F00B79E46 /* OCRService.swift in Sources */,
 				92A00B5F23F8331B0029C002 /* SearchListView.swift in Sources */,
 				92FB59B924254EF200582144 /* CGImagePropertyOrientation+Ext.swift in Sources */,
 				92E2014E240BEE780021CE0D /* StorageService.swift in Sources */,
 				9229D4792413E80900E52B68 /* CarPlateRecognitionView.swift in Sources */,
 				92048458240B13EE00A3035C /* CarDetailsView.swift in Sources */,
+				92EB474124265BA000B79E46 /* OCRTestPostProcessor.swift in Sources */,
 				9229D4762413E77900E52B68 /* CarPlateRecognitionViewController.swift in Sources */,
 				92A00B6623F83EA30029C002 /* SearchListRow.swift in Sources */,
 				92413B3023FEBF7F00C9005A /* CarPlateView.swift in Sources */,

@@ -42,7 +42,7 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
 //            return
 //        }
         //performVisionRequest(coreMLRequest, image: cgImage, orientation: cgOrientation)
-        viewModel.recognize(on: originalImage) { [weak self] recognizedObjects in
+        viewModel.detect(on: originalImage) { [weak self] recognizedObjects in
             self?.onObjectsRecognized(recognizedObjects)
         }
 
@@ -97,92 +97,20 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
     }
     
     // MARK: - Vision
-    
-    /// - Tag: PerformRequests
-    fileprivate func performVisionRequest(_ request: VNRequest, image: CGImage, orientation: CGImagePropertyOrientation) {
-        
-        // Create a request handler.
-        let imageRequestHandler = VNImageRequestHandler(cgImage: image,
-                                                        orientation: orientation,
-                                                        options: [:])
-        
-        // Send the requests to the request handler.
-        DispatchQueue.global(qos: .userInitiated).async {
-            do {
-                try imageRequestHandler.perform([request])
-            } catch let error as NSError {
-                print("Failed to perform image request: \(error)")
-                self.presentAlert("Image Request Failed", error: error)
-                return
-            }
-        }
-    }
-    
-    fileprivate func handleCoreMLRequest(request: VNRequest?, error: Error?) {
-        DispatchQueue.main.async {
-            guard let results = request?.results as? [VNRecognizedObjectObservation] else {
-                print(error!.localizedDescription)
-                return
-            }
-            results.forEach { print($0.confidence)}
-            self.onObjectsRecognized(results.filter { $0.confidence > 0.7 })
-        }
-    }
-    
-    fileprivate func handleDetectedText(request: VNRequest?, error: Error?) {
-        if let nsError = error as NSError? {
-            self.presentAlert("Text Detection Error", error: nsError)
-            return
-        }
-        // Perform drawing on the main thread.
-        DispatchQueue.main.async {
-            guard let results = request?.results as? [VNRecognizedTextObservation] else {
-                    return
-            }
-            
-            results.forEach {
-                let text = $0.topCandidates(1).first?.string ?? ""
-                let formattedText = text.trimmingCharacters(in: .whitespaces)
-                self.recognizedTextLabel.text = formattedText
-            }
-        }
-    }
-    
+
     func onObjectsRecognized(_ recognizedObjects: [VNRecognizedObjectObservation]) {
         //draw path and set recognized image
         guard let drawLayer = self.pathLayer else { fatalError() }
         draw(objects: recognizedObjects, onImageWithBounds: drawLayer.bounds)
         drawLayer.setNeedsDisplay()
 
-        guard let recognizedObjectImage = recognizedObjectImageView.image,
-            let recognizedObjectCGImage = recognizedObjectImage.cgImage else { fatalError() }
-        let orientation = CGImagePropertyOrientation(recognizedObjectImage.imageOrientation)
-        performVisionRequest(textRecognitionRequest, image: recognizedObjectCGImage, orientation: orientation)
-    }
-    
-    /// - Tag: ConfigureCompletionHandler
-    
-    lazy var coreMLRequest: VNCoreMLRequest = {
-        do {
-            let model = try VNCoreMLModel(for: CarPlateDetector().model)
-            let request = VNCoreMLRequest(model: model, completionHandler: self.handleCoreMLRequest)
-            
-            return request
-        } catch {
-            fatalError()
+        guard let recognizedObjectImage = recognizedObjectImageView.image else { fatalError() }
+
+
+        viewModel.ocr(on: recognizedObjectImage) { [weak self] texts in
+            self?.recognizedTextLabel.text = texts.first ?? ""
         }
-    }()
-    
-    lazy var textRecognitionRequest: VNRecognizeTextRequest = {
-        let textRecognitionRequest = VNRecognizeTextRequest(completionHandler: self.handleDetectedText)
-        textRecognitionRequest.usesLanguageCorrection = false
-        textRecognitionRequest.recognitionLanguages = ["ukr"] //language ISO code
-        textRecognitionRequest.usesLanguageCorrection = false
-        textRecognitionRequest.recognitionLevel = .fast
-        textRecognitionRequest.usesCPUOnly = true //better to use in real time request
-        
-        return textRecognitionRequest
-    }()
+    }
     
     // MARK: - Path-Drawing
     
@@ -221,14 +149,6 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
         rect.size.height *= originalImageHeight
         
         return rect
-    }
-    
-    func maximumContrast(cgImage: CGImage) -> CGImage? {
-        let ciImage = CIImage(cgImage: cgImage)
-        let parameters = ["inputSaturation": NSNumber(value: 0), "inputContrast": NSNumber(value: 5)]
-        let contrastedImage = ciImage.applyingFilter("CIColorControls", parameters: parameters)
-        let context = CIContext(options: nil)
-        return context.createCGImage(contrastedImage, from: contrastedImage.extent)
     }
     
     fileprivate func shapeLayer(color: UIColor, frame: CGRect) -> CAShapeLayer {
