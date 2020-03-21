@@ -12,7 +12,8 @@ import CoreML
 import Foundation
 
 class CarPlateRecognitionViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+    let viewModel = CarPlateRecognitionViewModel()
+
     @IBOutlet weak var recognizedTextLabel: UILabel!
     @IBOutlet weak var recognizedObjectImageView: UIImageView!
     @IBOutlet weak var imageView: UIImageView!
@@ -25,11 +26,6 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
     var imageWidth: CGFloat = 0
     var imageHeight: CGFloat = 0
     
-    // Background is black, so display status bar in white.
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard let originalImage = originalImage else {
@@ -38,111 +34,21 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
         // Display image on screen.
         show(originalImage)
 
-        // Convert from UIImageOrientation to CGImagePropertyOrientation.
-        let cgOrientation = CGImagePropertyOrientation(originalImage.imageOrientation)
+//        // Convert from UIImageOrientation to CGImagePropertyOrientation.
+//        let cgOrientation = CGImagePropertyOrientation(originalImage.imageOrientation)
+//
+//        // Fire off request based on URL of chosen photo.
+//        guard let cgImage = originalImage.cgImage else {
+//            return
+//        }
+        //performVisionRequest(coreMLRequest, image: cgImage, orientation: cgOrientation)
+        viewModel.recognize(on: originalImage) { [weak self] recognizedObjects in
+            self?.onObjectsRecognized(recognizedObjects)
+        }
 
-        // Fire off request based on URL of chosen photo.
-        guard let cgImage = originalImage.cgImage else {
-            return
-        }
-        performVisionRequest(coreMLRequest, image: cgImage, orientation: cgOrientation)
     }
-    
-    // MARK: - Helper Methods
-    
+
     /// - Tag: PreprocessImage
-    func scaleAndOrient(image: UIImage) -> UIImage {
-        
-        // Set a default value for limiting image size.
-        let maxResolution: CGFloat = 640
-        
-        guard let cgImage = image.cgImage else {
-            print("UIImage has no CGImage backing it!")
-            return image
-        }
-        
-        // Compute parameters for transform.
-        let width = CGFloat(cgImage.width)
-        let height = CGFloat(cgImage.height)
-        var transform = CGAffineTransform.identity
-        
-        var bounds = CGRect(x: 0, y: 0, width: width, height: height)
-        
-        if width > maxResolution ||
-            height > maxResolution {
-            let ratio = width / height
-            if width > height {
-                bounds.size.width = maxResolution
-                bounds.size.height = round(maxResolution / ratio)
-            } else {
-                bounds.size.width = round(maxResolution * ratio)
-                bounds.size.height = maxResolution
-            }
-        }
-        
-        let scaleRatio = bounds.size.width / width
-        let orientation = image.imageOrientation
-        switch orientation {
-        case .up:
-            transform = .identity
-        case .down:
-            transform = CGAffineTransform(translationX: width, y: height).rotated(by: .pi)
-        case .left:
-            let boundsHeight = bounds.size.height
-            bounds.size.height = bounds.size.width
-            bounds.size.width = boundsHeight
-            transform = CGAffineTransform(translationX: 0, y: width).rotated(by: 3.0 * .pi / 2.0)
-        case .right:
-            let boundsHeight = bounds.size.height
-            bounds.size.height = bounds.size.width
-            bounds.size.width = boundsHeight
-            transform = CGAffineTransform(translationX: height, y: 0).rotated(by: .pi / 2.0)
-        case .upMirrored:
-            transform = CGAffineTransform(translationX: width, y: 0).scaledBy(x: -1, y: 1)
-        case .downMirrored:
-            transform = CGAffineTransform(translationX: 0, y: height).scaledBy(x: 1, y: -1)
-        case .leftMirrored:
-            let boundsHeight = bounds.size.height
-            bounds.size.height = bounds.size.width
-            bounds.size.width = boundsHeight
-            transform = CGAffineTransform(translationX: height, y: width).scaledBy(x: -1, y: 1).rotated(by: 3.0 * .pi / 2.0)
-        case .rightMirrored:
-            let boundsHeight = bounds.size.height
-            bounds.size.height = bounds.size.width
-            bounds.size.width = boundsHeight
-            transform = CGAffineTransform(scaleX: -1, y: 1).rotated(by: .pi / 2.0)
-        }
-        
-        return UIGraphicsImageRenderer(size: bounds.size).image { rendererContext in
-            let context = rendererContext.cgContext
-            
-            if orientation == .right || orientation == .left {
-                context.scaleBy(x: -scaleRatio, y: scaleRatio)
-                context.translateBy(x: -height, y: 0)
-            } else {
-                context.scaleBy(x: scaleRatio, y: -scaleRatio)
-                context.translateBy(x: 0, y: -height)
-            }
-            context.concatenate(transform)
-            context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
-        }
-    }
-    
-    func presentAlert(_ title: String, error: NSError) {
-        // Always present alert on main thread.
-        DispatchQueue.main.async {
-            let alertController = UIAlertController(title: title,
-                                                    message: error.localizedDescription,
-                                                    preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK",
-                                         style: .default) { _ in
-                                            // Do nothing -- simply dismiss alert.
-            }
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
-        }
-    }
-    
     func show(_ image: UIImage) {
         
         // Remove previous paths & image
@@ -151,7 +57,7 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
         imageView.image = nil
         
         // Account for image orientation by transforming view.
-        let correctedImage = scaleAndOrient(image: image)
+        let correctedImage = image.scaledAndOriented(maxResolution: 640)
         
         // Place photo inside imageView.
         imageView.image = correctedImage
@@ -210,17 +116,6 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
                 return
             }
         }
-    }
-    
-    /// - Tag: CreateRequests
-    fileprivate func createVisionRequests() -> [VNRequest] {
-        
-        // Create an array to collect all desired requests.
-        var requests: [VNRequest] = []
-
-        requests.append(self.coreMLRequest)
-        // Return grouped requests as a single array.
-        return requests
     }
     
     fileprivate func handleCoreMLRequest(request: VNRequest?, error: Error?) {
@@ -380,4 +275,21 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
         CATransaction.commit()
     }
 
+
+    // MARK: - Helper Methods
+
+    func presentAlert(_ title: String, error: NSError) {
+        // Always present alert on main thread.
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: title,
+                                                    message: error.localizedDescription,
+                                                    preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK",
+                                         style: .default) { _ in
+                                            // Do nothing -- simply dismiss alert.
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
 }

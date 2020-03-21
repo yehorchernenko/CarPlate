@@ -14,6 +14,8 @@
 		9229D4792413E80900E52B68 /* CarPlateRecognitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9229D4782413E80900E52B68 /* CarPlateRecognitionView.swift */; };
 		923DF8CD2425ED8500ECDEFB /* CarPlateDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 923DF8CC2425ED8500ECDEFB /* CarPlateDetector.mlmodel */; };
 		923DF8CF2425F0D100ECDEFB /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923DF8CE2425F0D100ECDEFB /* ImagePicker.swift */; };
+		923DF8D124263B8000ECDEFB /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923DF8D024263B8000ECDEFB /* UIImage+Ext.swift */; };
+		923DF8D32426416400ECDEFB /* CarPlateRecognitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923DF8D22426416400ECDEFB /* CarPlateRecognitionViewModel.swift */; };
 		92413B3023FEBF7F00C9005A /* CarPlateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413B2F23FEBF7F00C9005A /* CarPlateView.swift */; };
 		92413B3223FF1E2200C9005A /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413B3123FF1E2200C9005A /* Color+Ext.swift */; };
 		92A00B3723F8329E0029C002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B3623F8329E0029C002 /* AppDelegate.swift */; };
@@ -35,6 +37,7 @@
 		92E27EE72407BF2C009D3A8B /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E27EE62407BF2C009D3A8B /* NetworkAgent.swift */; };
 		92E27EE92407BF40009D3A8B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E27EE82407BF40009D3A8B /* Endpoint.swift */; };
 		92E27EEB2407BFD2009D3A8B /* CarInfoDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E27EEA2407BFD2009D3A8B /* CarInfoDisplayModel.swift */; };
+		92EB473C24264DD100B79E46 /* ObjectDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EB473B24264DD100B79E46 /* ObjectDetectionService.swift */; };
 		92FB59B924254EF200582144 /* CGImagePropertyOrientation+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FB59B824254EF200582144 /* CGImagePropertyOrientation+Ext.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +59,8 @@
 		9229D4782413E80900E52B68 /* CarPlateRecognitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlateRecognitionView.swift; sourceTree = "<group>"; };
 		923DF8CC2425ED8500ECDEFB /* CarPlateDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CarPlateDetector.mlmodel; sourceTree = "<group>"; };
 		923DF8CE2425F0D100ECDEFB /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		923DF8D024263B8000ECDEFB /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
+		923DF8D22426416400ECDEFB /* CarPlateRecognitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlateRecognitionViewModel.swift; sourceTree = "<group>"; };
 		92413B2F23FEBF7F00C9005A /* CarPlateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlateView.swift; sourceTree = "<group>"; };
 		92413B3123FF1E2200C9005A /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		92A00B3323F8329E0029C002 /* CarPlate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarPlate.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +86,7 @@
 		92E27EE62407BF2C009D3A8B /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
 		92E27EE82407BF40009D3A8B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		92E27EEA2407BFD2009D3A8B /* CarInfoDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarInfoDisplayModel.swift; sourceTree = "<group>"; };
+		92EB473B24264DD100B79E46 /* ObjectDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetectionService.swift; sourceTree = "<group>"; };
 		92FB59B824254EF200582144 /* CGImagePropertyOrientation+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImagePropertyOrientation+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +129,7 @@
 			children = (
 				9229D4752413E77900E52B68 /* CarPlateRecognitionViewController.storyboard */,
 				9229D4742413E77900E52B68 /* CarPlateRecognitionViewController.swift */,
+				923DF8D22426416400ECDEFB /* CarPlateRecognitionViewModel.swift */,
 				9229D4782413E80900E52B68 /* CarPlateRecognitionView.swift */,
 			);
 			path = CarplateRecognition;
@@ -215,6 +222,7 @@
 				92413B3123FF1E2200C9005A /* Color+Ext.swift */,
 				9229D4702413CD1400E52B68 /* UIApplication+Ext.swift */,
 				92FB59B824254EF200582144 /* CGImagePropertyOrientation+Ext.swift */,
+				923DF8D024263B8000ECDEFB /* UIImage+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -280,6 +288,7 @@
 			children = (
 				92E27EE32407BEFF009D3A8B /* SearchService.swift */,
 				92E2014D240BEE780021CE0D /* StorageService.swift */,
+				92EB473B24264DD100B79E46 /* ObjectDetectionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -399,6 +408,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				923DF8D124263B8000ECDEFB /* UIImage+Ext.swift in Sources */,
 				92E27EE92407BF40009D3A8B /* Endpoint.swift in Sources */,
 				92A00B6923F89CDE0029C002 /* String+Ext.swift in Sources */,
 				92B76B7C24014ECD003F2ACA /* SearchListViewModel.swift in Sources */,
@@ -416,6 +426,8 @@
 				92413B3023FEBF7F00C9005A /* CarPlateView.swift in Sources */,
 				92A00B3723F8329E0029C002 /* AppDelegate.swift in Sources */,
 				923DF8CD2425ED8500ECDEFB /* CarPlateDetector.mlmodel in Sources */,
+				923DF8D32426416400ECDEFB /* CarPlateRecognitionViewModel.swift in Sources */,
+				92EB473C24264DD100B79E46 /* ObjectDetectionService.swift in Sources */,
 				92B76B7624014D09003F2ACA /* SearchBar.swift in Sources */,
 				92E27EE42407BEFF009D3A8B /* SearchService.swift in Sources */,
 				92A00B3C23F8329E0029C002 /* CarPlate.xcdatamodeld in Sources */,
