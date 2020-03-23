@@ -11,7 +11,7 @@ import Vision
 import CoreML
 
 protocol ObjectDetectionServiceType {
-    func detect(on image: UIImage, completion: @escaping (Result<[VNRecognizedObjectObservation], Error>) -> Void)
+    func detect(on image: UIImage, completion: @escaping (Result<[CGRect], Error>) -> Void)
 }
 
 class ObjectDetectionService: ObjectDetectionServiceType {
@@ -27,9 +27,9 @@ class ObjectDetectionService: ObjectDetectionServiceType {
         }
     }()
 
-    var completion: ((Result<[VNRecognizedObjectObservation], Error>) -> Void)?
+    var completion: ((Result<[CGRect], Error>) -> Void)?
 
-    func detect(on image: UIImage, completion: @escaping (Result<[VNRecognizedObjectObservation], Error>) -> Void) {
+    func detect(on image: UIImage, completion: @escaping (Result<[CGRect], Error>) -> Void) {
         self.completion = completion
 
         // Convert from UIImageOrientation to CGImagePropertyOrientation.
@@ -79,7 +79,9 @@ private extension ObjectDetectionService {
             return
         }
 
-        let highConfidenceResults = results.filter { $0.confidence > 0.7 }
+        let highConfidenceResults = results
+            .filter { $0.confidence > 0.7 }
+            .sorted { $0.confidence > $1.confidence }
 
         if highConfidenceResults.isEmpty {
             complete(.failure(RecognitionError.lowConfidence))
@@ -90,7 +92,7 @@ private extension ObjectDetectionService {
 
     func complete(_ result: Result<[VNRecognizedObjectObservation], Error>) {
         DispatchQueue.main.async {
-            self.completion?(result)
+            self.completion?(result.map { $0.map { $0.boundingBox } })
         }
     }
 }

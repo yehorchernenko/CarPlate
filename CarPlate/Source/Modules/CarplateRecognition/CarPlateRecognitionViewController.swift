@@ -1,18 +1,20 @@
 /*
-See LICENSE folder for this sample’s licensing information.
+ See LICENSE folder for this sample’s licensing information.
 
-Abstract:
-Contains the main app implementation using Vision.
-*/
+ Abstract:
+ Contains the main app implementation using Vision.
+ */
 
 import Photos
 import UIKit
 import Vision
 import CoreML
 import Foundation
+import Combine
 
 class CarPlateRecognitionViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    let viewModel = CarPlateRecognitionViewModel()
+    lazy var viewModel = CarPlateRecognitionViewModel(image: self.originalImage!)
+    private var bindings = Set<AnyCancellable>()
 
     @IBOutlet weak var recognizedTextLabel: UILabel!
     @IBOutlet weak var recognizedObjectImageView: UIImageView!
@@ -25,6 +27,26 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
     // Image parameters for reuse throughout app
     var imageWidth: CGFloat = 0
     var imageHeight: CGFloat = 0
+
+    func didUpdateViewModelStateHandler(_ state: CarPlateRecognitionViewModel.State) {
+        switch state {
+        case .didRecognizeCarPlate(let boundingBox):
+            onObjectRecognized(rectOfRecognition: boundingBox)
+
+        default:
+            print("default")
+        }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        viewModel.$state
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: didUpdateViewModelStateHandler(_:))
+            .store(in: &bindings)
+
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -34,18 +56,7 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
         // Display image on screen.
         show(originalImage)
 
-//        // Convert from UIImageOrientation to CGImagePropertyOrientation.
-//        let cgOrientation = CGImagePropertyOrientation(originalImage.imageOrientation)
-//
-//        // Fire off request based on URL of chosen photo.
-//        guard let cgImage = originalImage.cgImage else {
-//            return
-//        }
-        //performVisionRequest(coreMLRequest, image: cgImage, orientation: cgOrientation)
-        viewModel.detect(on: originalImage) { [weak self] recognizedObjects in
-            self?.onObjectsRecognized(recognizedObjects)
-        }
-
+        viewModel.viewDidSetup()
     }
 
     /// - Tag: PreprocessImage
@@ -98,14 +109,13 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
     
     // MARK: - Vision
 
-    func onObjectsRecognized(_ recognizedObjects: [VNRecognizedObjectObservation]) {
+    func onObjectRecognized(rectOfRecognition: CGRect) {
         //draw path and set recognized image
         guard let drawLayer = self.pathLayer else { fatalError() }
-        draw(objects: recognizedObjects, onImageWithBounds: drawLayer.bounds)
+        draw(rectOfRecognition: rectOfRecognition, onImageWithBounds: drawLayer.bounds)
         drawLayer.setNeedsDisplay()
 
         guard let recognizedObjectImage = recognizedObjectImageView.image else { fatalError() }
-
 
         viewModel.ocr(on: recognizedObjectImage) { [weak self] texts in
             self?.recognizedTextLabel.text = texts.first ?? ""
@@ -175,23 +185,20 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
         return layer
     }
     
-    fileprivate func draw(objects: [VNRecognizedObjectObservation], onImageWithBounds bounds: CGRect) {
+    fileprivate func draw(rectOfRecognition: CGRect, onImageWithBounds bounds: CGRect) {
         CATransaction.begin()
-        for observation in objects {
-            guard let originalImage = imageView.image?.cgImage else { fatalError() }
-            let rect = normalizedRect(forRegionOfInterest: observation.boundingBox, originalImage: originalImage)
-            
-            guard let recognizedImage = originalImage.cropping(to: rect) else { fatalError() }
-            //let contrastedImage = maximumContrast(cgImage: recognizedImage)
-            recognizedObjectImageView.image = UIImage(cgImage: recognizedImage)
-            
-            let rectBox = boundingBox(forRegionOfInterest: observation.boundingBox, withinImageBounds: bounds)
-            let rectLayer = shapeLayer(color: .green, frame: rectBox)
-            
-            // Add to pathLayer on top of image.
-            pathLayer?.addSublayer(rectLayer)
-            
-        }
+        guard let originalImage = imageView.image?.cgImage else { fatalError() }
+        let rect = normalizedRect(forRegionOfInterest: rectOfRecognition, originalImage: originalImage)
+
+        guard let recognizedImage = originalImage.cropping(to: rect) else { fatalError() }
+        recognizedObjectImageView.image = UIImage(cgImage: recognizedImage)
+
+        let rectBox = boundingBox(forRegionOfInterest: rectOfRecognition, withinImageBounds: bounds)
+        let rectLayer = shapeLayer(color: .green, frame: rectBox)
+
+        // Add to pathLayer on top of image.
+        pathLayer?.addSublayer(rectLayer)
+
         CATransaction.commit()
     }
 
