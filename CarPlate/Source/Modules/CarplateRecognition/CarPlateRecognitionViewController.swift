@@ -30,11 +30,28 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
 
     func didUpdateViewModelStateHandler(_ state: CarPlateRecognitionViewModel.State) {
         switch state {
-        case .didRecognizeCarPlate(let boundingBox):
+        case .processing:
+            break
+
+        case .showBackgroundImage(let image):
+            break
+
+        case .addDrawingLayer(let normalizedImage):
+            imageView.image = normalizedImage
+            addDrawingLayer(normalizedImage: normalizedImage)
+
+        case .showRecognizedCarPlateImage(let image):
+            recognizedObjectImageView.image = image
+
+        case .highlightRecognizedCarPlateRect(let boundingBox):
             onObjectRecognized(rectOfRecognition: boundingBox)
 
-        default:
-            print("default")
+        case .showRecognizedText(let text):
+            recognizedTextLabel.text = text
+
+        case .didReceiveError(let message):
+            assertionFailure("Error message: \(message)")
+
         }
     }
 
@@ -46,35 +63,20 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
             .sink(receiveValue: didUpdateViewModelStateHandler(_:))
             .store(in: &bindings)
 
+
+        viewModel.viewDidLoad()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let originalImage = originalImage else {
-            return
-        }
-        // Display image on screen.
-        show(originalImage)
 
-        viewModel.viewDidSetup()
+        viewModel.viewDidAppear()
     }
 
     /// - Tag: PreprocessImage
-    func show(_ image: UIImage) {
-        
-        // Remove previous paths & image
-        pathLayer?.removeFromSuperlayer()
-        pathLayer = nil
-        imageView.image = nil
-        
-        // Account for image orientation by transforming view.
-        let correctedImage = image.scaledAndOriented(maxResolution: 640)
-        
-        // Place photo inside imageView.
-        imageView.image = correctedImage
-        
+    func addDrawingLayer(normalizedImage image: UIImage) {
         // Transform image to fit screen.
-        guard let cgImage = correctedImage.cgImage else {
+        guard let cgImage = image.cgImage else {
             print("Trying to show an image not backed by CGImage!")
             return
         }
@@ -115,11 +117,11 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
         draw(rectOfRecognition: rectOfRecognition, onImageWithBounds: drawLayer.bounds)
         drawLayer.setNeedsDisplay()
 
-        guard let recognizedObjectImage = recognizedObjectImageView.image else { fatalError() }
-
-        viewModel.ocr(on: recognizedObjectImage) { [weak self] texts in
-            self?.recognizedTextLabel.text = texts.first ?? ""
-        }
+//        guard let recognizedObjectImage = recognizedObjectImageView.image else { fatalError() }
+//
+//        viewModel.ocr(on: recognizedObjectImage) { [weak self] texts in
+//            self?.recognizedTextLabel.text = texts.first ?? ""
+//        }
     }
     
     // MARK: - Path-Drawing
@@ -187,11 +189,11 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
     
     fileprivate func draw(rectOfRecognition: CGRect, onImageWithBounds bounds: CGRect) {
         CATransaction.begin()
-        guard let originalImage = imageView.image?.cgImage else { fatalError() }
-        let rect = normalizedRect(forRegionOfInterest: rectOfRecognition, originalImage: originalImage)
-
-        guard let recognizedImage = originalImage.cropping(to: rect) else { fatalError() }
-        recognizedObjectImageView.image = UIImage(cgImage: recognizedImage)
+//        guard let originalImage = imageView.image?.cgImage else { fatalError() }
+//        let rect = normalizedRect(forRegionOfInterest: rectOfRecognition, originalImage: originalImage)
+//
+//        guard let recognizedImage = originalImage.cropping(to: rect) else { fatalError() }
+//        recognizedObjectImageView.image = UIImage(cgImage: recognizedImage)
 
         let rectBox = boundingBox(forRegionOfInterest: rectOfRecognition, withinImageBounds: bounds)
         let rectLayer = shapeLayer(color: .green, frame: rectBox)

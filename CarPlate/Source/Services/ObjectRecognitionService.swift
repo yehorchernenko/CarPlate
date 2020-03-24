@@ -10,11 +10,11 @@ import UIKit
 import Vision
 import CoreML
 
-protocol ObjectDetectionServiceType {
+protocol ObjectRecognitionServiceType {
     func detect(on image: UIImage, completion: @escaping (Result<[CGRect], Error>) -> Void)
 }
 
-class ObjectDetectionService: ObjectDetectionServiceType {
+class ObjectRecognitionService: ObjectRecognitionServiceType {
     lazy var coreMLRequest: VNCoreMLRequest = {
         do {
             let model = try VNCoreMLModel(for: CarPlateDetector().model)
@@ -43,7 +43,7 @@ class ObjectDetectionService: ObjectDetectionServiceType {
     }
 }
 
-private extension ObjectDetectionService {
+private extension ObjectRecognitionService {
     enum RecognitionError: Error {
         case cgImageIsNil
         case unableToInitializeCoreMLModel

@@ -98,4 +98,30 @@ extension UIImage {
             context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
         }
     }
+
+    func normalizedRect(forRegionOfInterest: CGRect) -> CGRect {
+        guard let originalImage = self.cgImage else { return .zero }
+        let originalImageWidth = CGFloat(originalImage.width)
+        let originalImageHeight = CGFloat(originalImage.height)
+        // Begin with input rect.
+        var rect = forRegionOfInterest
+
+        // Reposition origin.
+        rect.origin.x *= originalImageWidth
+        rect.origin.y =  (1 - rect.origin.y - rect.size.height) * originalImageHeight
+
+        // Rescale normalized coordinates.
+        rect.size.width *= originalImageWidth
+        rect.size.height *= originalImageHeight
+
+        return rect
+    }
+
+    func cropped(to rect: CGRect) -> UIImage? {
+        guard let originalImage = self.cgImage,
+            let croppedImage = originalImage.cropping(to: rect)
+            else { return nil }
+
+        return UIImage(cgImage: croppedImage)
+    }
 }

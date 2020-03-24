@@ -12,62 +12,81 @@ import CoreML
 
 class CarPlateRecognitionViewModel {
     enum State {
-        case idle
-        case viewDidSetup(image: UIImage)
-        case didRecognizeCarPlate(boundingBox: CGRect)
-        case didOCR(text: String)
+        case processing
+        case showBackgroundImage(image: UIImage)
+        case addDrawingLayer(normalizedImage: UIImage)
+        case highlightRecognizedCarPlateRect(boundingBox: CGRect)
+        case showRecognizedCarPlateImage(image: UIImage)
+        case showRecognizedText(text: String)
         case didReceiveError(message: String)
     }
-    let objectDetectionService: ObjectDetectionServiceType = ObjectDetectionService()
+    let objectRecognitionService: ObjectRecognitionServiceType = ObjectRecognitionService()
     let ocrService: OCRServiceType = OCRService(postProcessor: CarPlateOCRPostProcessor())
     let image: UIImage
-    @Published var state: State = .idle
+    var normalizedImage: UIImage {
+        return image.scaledAndOriented(maxResolution: 640)
+    }
+    @Published var state: State = .processing
 
     init(image: UIImage) {
         self.image = image
     }
 
-    func viewDidSetup() {
-        state = .viewDidSetup(image: image)
-
-        objectDetectionService.detect(on: image, completion: didDetectHandler)
+    func viewDidLoad() {
+        //in order to set blurred background
+        state = .showBackgroundImage(image: image)
     }
 
-    func didDetectHandler(_ result: Result<[CGRect], Error>) {
+    func viewDidAppear() {
+        state = .addDrawingLayer(normalizedImage: normalizedImage)
+
+        startCarPlateRecognition()
+    }
+
+    func startCarPlateRecognition() {
+        objectRecognitionService.detect(on: image, completion: didRecognizeHandler)
+    }
+
+    func didRecognizeHandler(_ result: Result<[CGRect], Error>) {
         switch result {
         case .success(let boundingBoxes):
             guard let boundingBox = boundingBoxes.first else {
                 assertionFailure("TODO")
                 return
             }
-            state = .didRecognizeCarPlate(boundingBox: boundingBox)
+            state = .highlightRecognizedCarPlateRect(boundingBox: boundingBox)
+
+            let recognizedImage = imageOnRecognizedRect(boundingBox)
+            state = .showRecognizedCarPlateImage(image: recognizedImage)
+
+            startOCR(on: recognizedImage)
+
 
         case .failure(let error):
-            assertionFailure("TODO")
+            state = .didReceiveError(message: error.localizedDescription)
         }
     }
 
-    func detect(on image: UIImage, completion: @escaping ([VNRecognizedObjectObservation]) -> Void) {
-//        objectDetectionService.detect(on: image) { result in
-//            switch result {
-//            case .success(let recognizedObjects):
-//                completion(recognizedObjects)
-//
-//            case .failure(let error):
-//                completion([])
-//            }
-//        }
+    func imageOnRecognizedRect(_ rect: CGRect) -> UIImage {
+        let rectOfInterest = normalizedImage.normalizedRect(forRegionOfInterest: rect)
+        guard let image = normalizedImage.cropped(to: rectOfInterest) else {
+            return UIImage ()
+        }
+        return image
     }
 
-    func ocr(on image: UIImage, completion: @escaping ([String]) -> Void) {
-        ocrService.recognize(on: image) { result in
-            switch result {
-            case .success(let recognizedTexts):
-                completion(recognizedTexts)
+    func startOCR(on image: UIImage) {
+        ocrService.recognize(on: image, completion: didOCRHandler(_:))
+    }
 
-            case .failure(let error):
-                completion([])
-            }
+    func didOCRHandler(_ result: Result<[String], Error>) {
+        switch result {
+        case .success(let texts):
+            guard let text = texts.first else { return }
+            state = .showRecognizedText(text: text)
+
+        case .failure(let error):
+            state = .didReceiveError(message: error.localizedDescription)
         }
     }
 }
