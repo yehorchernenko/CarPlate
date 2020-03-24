@@ -34,7 +34,7 @@ struct CarPlateViewControllerRepresentation: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> CarPlateRecognitionViewController {
         let sb = UIStoryboard(name: String(describing: CarPlateRecognitionViewController.self), bundle: nil)
         let controller = sb.instantiateInitialViewController() as! CarPlateRecognitionViewController
-        controller.originalImage = image
+        controller.viewModel = CarPlateRecognitionViewModel(image: image!)
         
         return controller
     }

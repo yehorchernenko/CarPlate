@@ -13,7 +13,7 @@ import Foundation
 import Combine
 
 class CarPlateRecognitionViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    lazy var viewModel = CarPlateRecognitionViewModel(image: self.originalImage!)
+    var viewModel: CarPlateRecognitionViewModel!
     private var bindings = Set<AnyCancellable>()
 
     @IBOutlet weak var spinner: UIActivityIndicatorView!
