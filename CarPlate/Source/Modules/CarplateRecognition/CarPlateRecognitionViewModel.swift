@@ -23,9 +23,7 @@ class CarPlateRecognitionViewModel {
     let objectRecognitionService: ObjectRecognitionServiceType = ObjectRecognitionService()
     let ocrService: OCRServiceType = OCRService(postProcessor: CarPlateOCRPostProcessor())
     let image: UIImage
-    var normalizedImage: UIImage {
-        return image.scaledAndOriented(maxResolution: 640)
-    }
+    var normalizedImage: UIImage!
     @Published var state: State = .processing
 
     init(image: UIImage) {
@@ -35,6 +33,7 @@ class CarPlateRecognitionViewModel {
     func viewDidLoad() {
         //in order to set blurred background
         state = .showBackgroundImage(image: image)
+        normalizedImage = image.scaledAndOriented(maxResolution: 640)
     }
 
     func viewDidAppear() {
@@ -44,7 +43,7 @@ class CarPlateRecognitionViewModel {
     }
 
     func startCarPlateRecognition() {
-        objectRecognitionService.detect(on: image, completion: didRecognizeHandler)
+        objectRecognitionService.detect(on: normalizedImage, completion: didRecognizeHandler)
     }
 
     func didRecognizeHandler(_ result: Result<[CGRect], Error>) {

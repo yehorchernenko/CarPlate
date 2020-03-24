@@ -21,14 +21,10 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
     @IBOutlet weak var recognizedTextLabel: UILabel!
     @IBOutlet weak var recognizedObjectImageView: UIImageView!
     @IBOutlet weak var imageView: UIImageView!
-    var originalImage: UIImage?
     
     // Layer into which to draw bounding box paths.
     var pathLayer: CALayer?
-    
-    // Image parameters for reuse throughout app
-    var imageWidth: CGFloat = 0
-    var imageHeight: CGFloat = 0
+
 
     func didUpdateViewModelStateHandler(_ state: CarPlateRecognitionViewModel.State) {
         switch state {
@@ -95,8 +91,8 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
         let scaleDownRatio = max(widthRatio, heightRatio)
         
         // Cache image dimensions to reference when drawing CALayer paths.
-        imageWidth = fullImageWidth / scaleDownRatio
-        imageHeight = fullImageHeight / scaleDownRatio
+        let imageWidth = fullImageWidth / scaleDownRatio
+        let imageHeight = fullImageHeight / scaleDownRatio
         
         // Prepare pathLayer to hold Vision results.
         let xLayer = (imageFrame.width - imageWidth) / 2
@@ -105,9 +101,7 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
         drawingLayer.bounds = CGRect(x: xLayer, y: yLayer, width: imageWidth, height: imageHeight)
         drawingLayer.anchorPoint = CGPoint.zero
         drawingLayer.position = CGPoint(x: xLayer, y: yLayer)
-        drawingLayer.opacity = 0.5
-//        drawingLayer.borderColor = UIColor.red.cgColor
-//        drawingLayer.borderWidth = 2
+        drawingLayer.opacity = 1
         pathLayer = drawingLayer
         self.view.layer.addSublayer(drawingLayer)
     }
@@ -116,7 +110,10 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
 
     func highlightRecognized(rectOfInterest: CGRect) {
         //draw path and set recognized image
-        guard let drawLayer = self.pathLayer else { fatalError() }
+        guard let drawLayer = self.pathLayer else {
+            assertionFailure()
+            return
+        }
         draw(rectOfRecognition: rectOfInterest, onImageWithBounds: drawLayer.bounds)
         drawLayer.setNeedsDisplay()
     }
