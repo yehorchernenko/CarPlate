@@ -18,6 +18,8 @@
 		923DF8D32426416400ECDEFB /* CarPlateRecognitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923DF8D22426416400ECDEFB /* CarPlateRecognitionViewModel.swift */; };
 		92413B3023FEBF7F00C9005A /* CarPlateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413B2F23FEBF7F00C9005A /* CarPlateView.swift */; };
 		92413B3223FF1E2200C9005A /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413B3123FF1E2200C9005A /* Color+Ext.swift */; };
+		926E7D25242B853900C70FBE /* CarPlateRecognitionContainerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926E7D24242B853900C70FBE /* CarPlateRecognitionContainerViewController.storyboard */; };
+		926E7D27242BA12C00C70FBE /* CarPlateRecognitionContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926E7D26242BA12C00C70FBE /* CarPlateRecognitionContainerViewController.swift */; };
 		92A00B3723F8329E0029C002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B3623F8329E0029C002 /* AppDelegate.swift */; };
 		92A00B3923F8329E0029C002 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B3823F8329E0029C002 /* SceneDelegate.swift */; };
 		92A00B3C23F8329E0029C002 /* CarPlate.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B3A23F8329E0029C002 /* CarPlate.xcdatamodeld */; };
@@ -65,6 +67,8 @@
 		923DF8D22426416400ECDEFB /* CarPlateRecognitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlateRecognitionViewModel.swift; sourceTree = "<group>"; };
 		92413B2F23FEBF7F00C9005A /* CarPlateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlateView.swift; sourceTree = "<group>"; };
 		92413B3123FF1E2200C9005A /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
+		926E7D24242B853900C70FBE /* CarPlateRecognitionContainerViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CarPlateRecognitionContainerViewController.storyboard; sourceTree = "<group>"; };
+		926E7D26242BA12C00C70FBE /* CarPlateRecognitionContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlateRecognitionContainerViewController.swift; sourceTree = "<group>"; };
 		92A00B3323F8329E0029C002 /* CarPlate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarPlate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92A00B3623F8329E0029C002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92A00B3823F8329E0029C002 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,12 +135,30 @@
 		9229D4732413E6F000E52B68 /* CarplateRecognition */ = {
 			isa = PBXGroup;
 			children = (
+				9229D4782413E80900E52B68 /* CarPlateRecognitionView.swift */,
+				926E7D23242B851800C70FBE /* Container */,
+				926E7D2B242BAA5A00C70FBE /* Recognition */,
+			);
+			path = CarplateRecognition;
+			sourceTree = "<group>";
+		};
+		926E7D23242B851800C70FBE /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				926E7D24242B853900C70FBE /* CarPlateRecognitionContainerViewController.storyboard */,
+				926E7D26242BA12C00C70FBE /* CarPlateRecognitionContainerViewController.swift */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
+		926E7D2B242BAA5A00C70FBE /* Recognition */ = {
+			isa = PBXGroup;
+			children = (
 				9229D4752413E77900E52B68 /* CarPlateRecognitionViewController.storyboard */,
 				9229D4742413E77900E52B68 /* CarPlateRecognitionViewController.swift */,
 				923DF8D22426416400ECDEFB /* CarPlateRecognitionViewModel.swift */,
-				9229D4782413E80900E52B68 /* CarPlateRecognitionView.swift */,
 			);
-			path = CarplateRecognition;
+			name = Recognition;
 			sourceTree = "<group>";
 		};
 		92A00B2A23F8329E0029C002 = {
@@ -405,6 +427,7 @@
 				92A00B4323F832A00029C002 /* Preview Assets.xcassets in Resources */,
 				92A00B4023F832A00029C002 /* Assets.xcassets in Resources */,
 				9229D4772413E77900E52B68 /* CarPlateRecognitionViewController.storyboard in Resources */,
+				926E7D25242B853900C70FBE /* CarPlateRecognitionContainerViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +451,7 @@
 				92B76B7C24014ECD003F2ACA /* SearchListViewModel.swift in Sources */,
 				9229D4712413CD1400E52B68 /* UIApplication+Ext.swift in Sources */,
 				92A00B6C23F8A2D40029C002 /* CarInfo.swift in Sources */,
+				926E7D27242BA12C00C70FBE /* CarPlateRecognitionContainerViewController.swift in Sources */,
 				92E27EE72407BF2C009D3A8B /* NetworkAgent.swift in Sources */,
 				92413B3223FF1E2200C9005A /* Color+Ext.swift in Sources */,
 				92EB473F24265B6F00B79E46 /* OCRService.swift in Sources */,

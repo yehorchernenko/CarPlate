@@ -75,10 +75,16 @@ struct CarInfo: Codable, Identifiable {
             nRegNew: nRegNew)
     }
     
-    static var list: [CarInfo] {
+    static var fakeList: [Self] {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return try! decoder.decode([CarInfo].self, from: data)
+    }
+
+    static var fake: Self {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return try! decoder.decode([CarInfo].self, from: data).first!
     }
     
     static let data: Data = """

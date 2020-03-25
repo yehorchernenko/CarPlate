@@ -47,4 +47,8 @@ struct CarInfoDisplayModel: Identifiable {
     var capacity: String {
         return "Capacity: \(item.capacity.valueOrEmpty)"
     }
+
+    static var fake: Self {
+        return .init(item: .fake)
+    }
 }

@@ -27,16 +27,25 @@ struct CarplateRecognitionView_Previews: PreviewProvider {
 struct CarPlateViewControllerRepresentation: UIViewControllerRepresentable {
     @Binding var image: UIImage?
 
-    func updateUIViewController(_ uiViewController: CarPlateRecognitionViewController, context: UIViewControllerRepresentableContext<CarPlateViewControllerRepresentation>) {
+    func updateUIViewController(_ uiViewController: CarPlateRecognitionContainerViewController, context: UIViewControllerRepresentableContext<CarPlateViewControllerRepresentation>) {
         
     }
     
-    func makeUIViewController(context: Context) -> CarPlateRecognitionViewController {
-        let sb = UIStoryboard(name: String(describing: CarPlateRecognitionViewController.self), bundle: nil)
-        let controller = sb.instantiateInitialViewController() as! CarPlateRecognitionViewController
-        controller.viewModel = CarPlateRecognitionViewModel(image: image!)
+    func makeUIViewController(context: Context) -> CarPlateRecognitionContainerViewController {
+        let containerSb = UIStoryboard(name: String(describing: CarPlateRecognitionContainerViewController.self), bundle: nil)
+        let containerController = containerSb.instantiateInitialViewController() as! CarPlateRecognitionContainerViewController
+
+        let recognitionSb = UIStoryboard(name: String(describing: CarPlateRecognitionViewController.self), bundle: nil)
+        let recognitionController = recognitionSb.instantiateInitialViewController() as! CarPlateRecognitionViewController
+        recognitionController.viewModel = CarPlateRecognitionViewModel(image: image!)
+
+        let detailsView = CarDetailsView(details: .fake)
+        let detailsViewController = UIHostingController(rootView: detailsView)
+
+        containerController.recognitionViewController = recognitionController
+        containerController.detailInfoViewController = detailsViewController
         
-        return controller
+        return containerController
     }
     
 }

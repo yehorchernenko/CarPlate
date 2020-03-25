@@ -15,9 +15,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UKv-CL-OiE">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UKv-CL-OiE">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mEO-xM-AM4">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -63,13 +62,17 @@
                             <constraint firstAttribute="bottom" secondItem="X7e-Uz-bh8" secondAttribute="bottom" id="1QR-SG-rs0"/>
                             <constraint firstItem="mEO-xM-AM4" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="A1d-5o-us7"/>
                             <constraint firstItem="mEO-xM-AM4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Ddf-Jo-tL8"/>
+                            <constraint firstItem="UKv-CL-OiE" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="LXK-3c-Txa"/>
                             <constraint firstItem="foh-Av-FRE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Njl-Iq-vgq"/>
                             <constraint firstItem="mEO-xM-AM4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="TDo-Gq-3lx"/>
                             <constraint firstItem="TPk-b2-huf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Wjq-3B-372"/>
                             <constraint firstItem="X7e-Uz-bh8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Z7B-m1-ZoO"/>
                             <constraint firstItem="X7e-Uz-bh8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ZSe-25-4rw"/>
                             <constraint firstItem="X7e-Uz-bh8" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="bTj-Tl-CHd"/>
+                            <constraint firstItem="UKv-CL-OiE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bVV-aP-FKb"/>
                             <constraint firstItem="TPk-b2-huf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hnx-3I-EVK"/>
+                            <constraint firstItem="UKv-CL-OiE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mMw-pU-JNr"/>
+                            <constraint firstItem="UKv-CL-OiE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="nYk-1A-be7"/>
                             <constraint firstItem="foh-Av-FRE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="nzF-oQ-Moe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

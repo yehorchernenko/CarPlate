@@ -11,12 +11,48 @@ import SwiftUI
 struct CarDetailsView: View {
     var details: CarInfoDisplayModel
     var body: some View {
-        Text(details.brand)
+        VStack {
+            VStack {
+                Text(details.brand)
+                Text(details.brand)
+                Text(details.brand)
+                Text(details.brand)
+            }.padding()
+
+            VStack {
+                Text(details.brand)
+                Text(details.brand)
+                Text(details.brand)
+                Text(details.brand)
+            }.padding()
+
+            VStack {
+                Text(details.brand)
+                Text(details.brand)
+                Text(details.brand)
+                Text(details.brand)
+            }.padding()
+
+            VStack {
+                Text("Check")
+                Text(details.brand)
+                Text(details.brand)
+                Text(details.brand)
+            }.padding()
+
+            VStack {
+                Text(details.brand)
+                Text(details.brand)
+                Text(details.brand)
+                Text(details.brand)
+            }.padding()
+
+        }
     }
 }
 
-//struct CarDetails_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CarDetailsView(details: "String")
-//    }
-//}
+struct CarDetails_Previews: PreviewProvider {
+    static var previews: some View {
+        CarDetailsView(details: CarInfoDisplayModel(item: .fake))
+    }
+}
