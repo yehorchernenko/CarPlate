@@ -29,10 +29,12 @@ class CarPlateRecognitionContainerViewController: UIViewController {
             detailInfoContainer.addSubview(detailInfoViewController.view)
             detailInfoViewController.didMove(toParent: self)
 
-            let topConstraint = NSLayoutConstraint(item: detailInfoViewController.view, attribute: .top, relatedBy: .equal, toItem: detailInfoContainer, attribute: .top, multiplier: 1, constant: 0)
-            let bottomConstraint = NSLayoutConstraint(item: detailInfoViewController.view, attribute: .bottom, relatedBy: .equal, toItem: detailInfoContainer, attribute: .bottom, multiplier: 1, constant: 0)
-            let trailingConstraint = NSLayoutConstraint(item: detailInfoViewController.view, attribute: .trailing, relatedBy: .equal, toItem: detailInfoContainer, attribute: .trailing, multiplier: 1, constant: 0)
-            let leadingConstraint = NSLayoutConstraint(item: detailInfoViewController.view, attribute: .leading, relatedBy: .equal, toItem: detailInfoContainer, attribute: .leading, multiplier: 1, constant: 0)
+            let detailsView = detailInfoViewController.view!
+
+            let topConstraint = NSLayoutConstraint(item: detailsView, attribute: .top, relatedBy: .equal, toItem: detailInfoContainer, attribute: .top, multiplier: 1, constant: 0)
+            let bottomConstraint = NSLayoutConstraint(item: detailsView, attribute: .bottom, relatedBy: .equal, toItem: detailInfoContainer, attribute: .bottom, multiplier: 1, constant: 0)
+            let trailingConstraint = NSLayoutConstraint(item: detailsView, attribute: .trailing, relatedBy: .equal, toItem: detailInfoContainer, attribute: .trailing, multiplier: 1, constant: 0)
+            let leadingConstraint = NSLayoutConstraint(item: detailsView, attribute: .leading, relatedBy: .equal, toItem: detailInfoContainer, attribute: .leading, multiplier: 1, constant: 0)
             detailInfoContainer.addConstraints([topConstraint, bottomConstraint, leadingConstraint,trailingConstraint])
         }
     }

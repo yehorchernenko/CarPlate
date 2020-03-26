@@ -11,9 +11,11 @@ import UIKit
 
 struct CarPlateRecognitionView: View {
     @Binding var image: UIImage?
+    @State var navigationTitle = "Recognizing…"
     
     var body: some View {
-        CarPlateViewControllerRepresentation(image: $image)
+        CarPlateViewControllerRepresentation(image: $image, navigationTitle: $navigationTitle)
+            .navigationBarTitle(navigationTitle)
     }
 }
 
@@ -26,6 +28,7 @@ struct CarplateRecognitionView_Previews: PreviewProvider {
 
 struct CarPlateViewControllerRepresentation: UIViewControllerRepresentable {
     @Binding var image: UIImage?
+    @Binding var navigationTitle: String
 
     func updateUIViewController(_ uiViewController: CarPlateRecognitionContainerViewController, context: UIViewControllerRepresentableContext<CarPlateViewControllerRepresentation>) {
         
@@ -37,7 +40,7 @@ struct CarPlateViewControllerRepresentation: UIViewControllerRepresentable {
 
         let recognitionSb = UIStoryboard(name: String(describing: CarPlateRecognitionViewController.self), bundle: nil)
         let recognitionController = recognitionSb.instantiateInitialViewController() as! CarPlateRecognitionViewController
-        recognitionController.viewModel = CarPlateRecognitionViewModel(image: image!)
+        recognitionController.viewModel = CarPlateRecognitionViewModel(image: image!, navigationTitle: $navigationTitle)
 
         let detailsView = CarDetailsView(details: .fake)
         let detailsViewController = UIHostingController(rootView: detailsView)

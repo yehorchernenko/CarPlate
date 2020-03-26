@@ -9,6 +9,8 @@
 import UIKit
 import Vision
 import CoreML
+import Combine
+import SwiftUI
 
 class CarPlateRecognitionViewModel {
     enum State {
@@ -25,9 +27,11 @@ class CarPlateRecognitionViewModel {
     let image: UIImage
     var normalizedImage: UIImage!
     @Published var state: State = .processing
-
-    init(image: UIImage) {
+    @Binding var navigationTitle: String
+    
+    init(image: UIImage, navigationTitle: Binding<String>) {
         self.image = image
+        _navigationTitle = navigationTitle
     }
 
     func viewDidLoad() {
@@ -83,6 +87,7 @@ class CarPlateRecognitionViewModel {
         case .success(let texts):
             guard let text = texts.first else { return }
             state = .showRecognizedText(text: text)
+            navigationTitle = text
 
         case .failure(let error):
             state = .didReceiveError(message: error.localizedDescription)

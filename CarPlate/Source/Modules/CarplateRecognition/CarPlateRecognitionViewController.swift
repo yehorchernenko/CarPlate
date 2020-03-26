@@ -162,6 +162,7 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
         layer.shadowOpacity = 0
         layer.shadowRadius = 0
         layer.borderWidth = 2
+        layer.cornerRadius = 2
 
         // Vary the line color according to input.
         layer.borderColor = color.cgColor
