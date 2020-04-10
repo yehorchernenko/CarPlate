@@ -13,6 +13,7 @@ struct SearchListView: View {
     @State var showActionSheet: Bool = false
     @State var showImagePicker: Bool = false
     @State var showRecognitionView: Bool = false
+    @State var showARView: Bool = false
     @State var imageToRecognize: UIImage?
     @State var activePicker: ActivatePicker = .photoLibrary
 
@@ -30,6 +31,10 @@ struct SearchListView: View {
                 self.activePicker = .photoLibrary
                 self.showImagePicker.toggle()
             }),
+            /*
+            .default(Text("AR"), action: {
+                self.showARView.toggle()
+            }),*/
             .destructive(Text("Cancel"), action: {
                 self.showActionSheet.toggle()
             })
@@ -43,6 +48,7 @@ struct SearchListView: View {
                 ImagePicker(image: self.$imageToRecognize, sourceType: .camera)
                     .onDisappear(perform: self.onImagePickerDisappear)
             )
+
         case .photoLibrary:
             return AnyView(
                 ImagePicker(image: self.$imageToRecognize, sourceType: .photoLibrary)
@@ -51,7 +57,7 @@ struct SearchListView: View {
         }
     }
 
-    var cameraNavigationLinks: some View {
+    var navigationLinks: some View {
         Group {
             NavigationLink(destination: CarPlateRecognitionView(image: $imageToRecognize)
                 .onDisappear(perform: {
@@ -59,6 +65,13 @@ struct SearchListView: View {
                 }),
                            isActive: $showRecognitionView,
                            label: { EmptyView() })
+
+            NavigationLink(destination: ARCarPlateRecognitionView()
+            .onDisappear(perform: {
+                self.showARView = false
+            }),
+                       isActive: $showARView,
+                       label: { EmptyView() })
         }
     }
     
@@ -93,10 +106,10 @@ struct SearchListView: View {
             ZStack {
                 table
                 ActivityIndicator(isAnimating: $viewModel.isLoading)
-                cameraNavigationLinks
+                navigationLinks
             }
             .navigationBarTitle("Search by carplate", displayMode: .inline)
-            }
+        }
         .onAppear {
             self.viewModel.load()
         }

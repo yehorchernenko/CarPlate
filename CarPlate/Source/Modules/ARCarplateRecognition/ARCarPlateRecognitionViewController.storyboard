@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yhR-aG-BlO">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Car Plate Recognition View Controller-->
+        <scene sceneID="Pqb-a2-zIA">
+            <objects>
+                <viewController storyboardIdentifier="ARCarPlateRecognitionViewController" id="yhR-aG-BlO" customClass="ARCarPlateRecognitionViewController" customModule="CarPlate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rkh-JZ-r9F">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UgI-uT-xlo">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </arscnView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="UgI-uT-xlo" firstAttribute="top" secondItem="rkh-JZ-r9F" secondAttribute="top" id="463-dw-Bol"/>
+                            <constraint firstItem="UgI-uT-xlo" firstAttribute="leading" secondItem="rkh-JZ-r9F" secondAttribute="leading" id="Vj6-Lx-xlG"/>
+                            <constraint firstAttribute="trailing" secondItem="UgI-uT-xlo" secondAttribute="trailing" id="lab-pD-8br"/>
+                            <constraint firstAttribute="bottom" secondItem="UgI-uT-xlo" secondAttribute="bottom" id="xYd-dk-GC3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="LiE-Yb-NiY"/>
+                    </view>
+                    <connections>
+                        <outlet property="sceneView" destination="UgI-uT-xlo" id="Tj0-BI-qse"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Zx-NX-2dD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="127.53623188405798" y="2.6785714285714284"/>
+        </scene>
+    </scenes>
+</document>

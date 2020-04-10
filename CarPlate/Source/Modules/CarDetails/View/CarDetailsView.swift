@@ -10,44 +10,54 @@ import SwiftUI
 
 struct CarDetailsView: View {
     var details: CarInfoDisplayModel
+
+    var topView: some View {
+        VStack {
+            Text("Goverment register")
+            Divider()
+            HStack {
+                Image("KIA")
+                    .resizable().scaledToFit()
+                    .frame(width: 80, height: 80)
+                VStack {
+                    Divider()
+                }.padding()
+                VStack(alignment: .trailing) {
+                    Text(details.brand)
+                    Text(details.model)
+                    Text(details.year)
+                }.padding(.trailing)
+            }
+            Divider()
+        }
+    }
+
+    var characteristicCarousel: some View {
+        VStack(alignment: .leading) {
+            Text("Properties")
+                .fontWeight(.ultraLight)
+                .font(.system(size: 15))
+            HStack {
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(details.characteristics, id: \.self) { item in
+                            CarDetailsCarouselCell(item: item)
+                        }
+                    }
+                }
+            }
+            Divider()
+        }
+    }
+
     var body: some View {
         VStack {
-            VStack {
-                Text(details.brand)
-                Text(details.brand)
-                Text(details.brand)
-                Text(details.brand)
-            }.padding()
-
-            VStack {
-                Text(details.brand)
-                Text(details.brand)
-                Text(details.brand)
-                Text(details.brand)
-            }.padding()
-
-            VStack {
-                Text(details.brand)
-                Text(details.brand)
-                Text(details.brand)
-                Text(details.brand)
-            }.padding()
-
-            VStack {
-                Text("Check")
-                Text(details.brand)
-                Text(details.brand)
-                Text(details.brand)
-            }.padding()
-
-            VStack {
-                Text(details.brand)
-                Text(details.brand)
-                Text(details.brand)
-                Text(details.brand)
-            }.padding()
-
+            topView
+            characteristicCarousel
+            Spacer()
         }
+        .padding()
+        .background(Color.primary.colorInvert())
     }
 }
 

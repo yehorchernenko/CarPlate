@@ -32,20 +32,73 @@ struct CarInfoDisplayModel: Identifiable {
     }
     
     var brand: String {
-        return item.brand.valueOrEmpty
+        if item.brand.valueOrEmpty.contains(item.model.valueOrEmpty) {
+            return item.brand.valueOrEmpty.replacingOccurrences(of: item.model.valueOrEmpty, with: "")
+        } else {
+            return item.brand.valueOrEmpty
+        }
     }
-    
-    var color: String {
-        return "Colour: \(item.color.valueOrEmpty)"
+
+    var model: String {
+        if item.brand.valueOrEmpty.contains(item.model.valueOrEmpty) {
+            return item.model.valueOrEmpty.replacingOccurrences(of: item.brand.valueOrEmpty, with: "")
+        } else {
+            return item.model.valueOrEmpty
+        }
     }
-    
+
     var year: String {
         guard let year = item.makeYear else { return "" }
+        return "\(year)"
+    }
+
+    var color: String {
+        return item.color.valueOrEmpty
+    }
+
+    var capacity: String {
+        return item.capacity.valueOrEmpty
+    }
+
+    var kind: String {
+        return item.kind.valueOrEmpty
+    }
+
+    var ownAndTotalWeight: String {
+        return "\(item.ownWeight.valueOrEmpty)/\(item.totalWeight.valueOrEmpty)"
+    }
+
+    var fuel: String {
+        return "\(item.fuel.valueOrEmpty)"
+    }
+
+    var formattedColor: String {
+        return "Colour: \(color)"
+    }
+    
+    var formattedYear: String {
         return "Year: \(year)"
     }
     
-    var capacity: String {
+    var formattedCapacity: String {
         return "Capacity: \(item.capacity.valueOrEmpty)"
+    }
+
+
+    var characteristics: [Characteristic] {
+        return [
+            Characteristic(imageName: "color-circle", type: "Color", value: color),
+            Characteristic(imageName: "engine", type: "Capacity", value: capacity),
+            Characteristic(imageName: "fuel", type: "Fuel", value: fuel),
+            Characteristic(imageName: "car-type", type: "Type", value: kind),
+            Characteristic(imageName: "weight", type: "Own / Total weight", value: ownAndTotalWeight),
+
+        ]
+    }
+    struct Characteristic: Hashable {
+        let imageName: String
+        let type: String
+        let value: String
     }
 
     static var fake: Self {
