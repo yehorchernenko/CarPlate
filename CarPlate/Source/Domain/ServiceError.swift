@@ -13,4 +13,5 @@ struct ServiceError: Error, Codable {
     let message: String?
 
     static let unknown = ServiceError(code: -1, message: "Unknown error")
+    static let duplicate = ServiceError(code: -2, message: "Duplicate")
 }

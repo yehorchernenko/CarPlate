@@ -24,9 +24,15 @@ class SearchListViewModel: ObservableObject {
         isLoading.toggle()
         token?.cancel()
         token = searchService.search(byCarPlate: searchText.uppercased())
-            .map {
-                self.storageService.save(carInfo: $0)
-                return CarInfoDisplayModel(item: $0) }
+            .compactMap { carInfo in
+                //save only if there is no duplication
+                let storedData = self.storageService.retrieve()
+                guard !storedData.contains(where: { $0.nRegNew == carInfo.nRegNew }) else {
+                    return nil
+                }
+                self.storageService.save(carInfo: carInfo)
+
+                return CarInfoDisplayModel(item: carInfo) }
             .sink(receiveCompletion: { completion in
 
                 switch completion {
@@ -43,10 +49,11 @@ class SearchListViewModel: ObservableObject {
     }
     
     func load() {
-        list = storageService.retrieve().map { CarInfoDisplayModel(item: $0)}
+        list = storageService.retrieve().map { CarInfoDisplayModel(item: $0)}.reversed()
     }
 
     func toggleError(_ error: ServiceError) {
         self.error = PresentableError(id: error.code ?? 0, title: "Error", message: error.message.valueOrEmpty)
     }
+
 }

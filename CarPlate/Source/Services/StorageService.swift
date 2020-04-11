@@ -51,7 +51,7 @@ class StorageService: StorageServiceType {
     
     func retrieve() -> [CarInfo] {
         let request = NSFetchRequest<CarInfoData>(entityName: String(describing: CarInfoData.self))
-        
+
         do {
             let result = try context.fetch(request)
             return result.compactMap {

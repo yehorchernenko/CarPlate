@@ -30,9 +30,9 @@ struct SearchListRow: View {
                 CarPlateView(number: item.carPlateNumber)
             }
             VStack(alignment: .leading, spacing: 4) {
-                Text("Color: Red")
-                Text("Year: 2013")
-                Text("Capacity: 1984")
+                Text(item.formattedColor)
+                Text(item.formattedYear)
+                Text(item.formattedCapacity)
             }.font(.caption)
         }
         .padding()
