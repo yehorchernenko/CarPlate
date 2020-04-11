@@ -46,7 +46,7 @@
 		92E9FF612440780E001D9EFB /* Optional+Err.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E9FF602440780E001D9EFB /* Optional+Err.swift */; };
 		92EB473C24264DD100B79E46 /* ObjectRecognitionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EB473B24264DD100B79E46 /* ObjectRecognitionService.swift */; };
 		92EB473F24265B6F00B79E46 /* OCRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EB473E24265B6F00B79E46 /* OCRService.swift */; };
-		92EB474124265BA000B79E46 /* OCRTestPostProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EB474024265BA000B79E46 /* OCRTestPostProcessor.swift */; };
+		92EB474124265BA000B79E46 /* OCRPostProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EB474024265BA000B79E46 /* OCRPostProcessor.swift */; };
 		92F5E38C242C972900D912EA /* ARCarPlateRecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F5E38B242C972900D912EA /* ARCarPlateRecognitionViewController.swift */; };
 		92F5E38E242C974000D912EA /* ARCarPlateRecognitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F5E38D242C974000D912EA /* ARCarPlateRecognitionView.swift */; };
 		92FB59B924254EF200582144 /* CGImagePropertyOrientation+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FB59B824254EF200582144 /* CGImagePropertyOrientation+Ext.swift */; };
@@ -106,7 +106,7 @@
 		92E9FF602440780E001D9EFB /* Optional+Err.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Err.swift"; sourceTree = "<group>"; };
 		92EB473B24264DD100B79E46 /* ObjectRecognitionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRecognitionService.swift; sourceTree = "<group>"; };
 		92EB473E24265B6F00B79E46 /* OCRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRService.swift; sourceTree = "<group>"; };
-		92EB474024265BA000B79E46 /* OCRTestPostProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRTestPostProcessor.swift; sourceTree = "<group>"; };
+		92EB474024265BA000B79E46 /* OCRPostProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRPostProcessor.swift; sourceTree = "<group>"; };
 		92F5E38B242C972900D912EA /* ARCarPlateRecognitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCarPlateRecognitionViewController.swift; sourceTree = "<group>"; };
 		92F5E38D242C974000D912EA /* ARCarPlateRecognitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCarPlateRecognitionView.swift; sourceTree = "<group>"; };
 		92FB59B824254EF200582144 /* CGImagePropertyOrientation+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImagePropertyOrientation+Ext.swift"; sourceTree = "<group>"; };
@@ -360,7 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				92EB473E24265B6F00B79E46 /* OCRService.swift */,
-				92EB474024265BA000B79E46 /* OCRTestPostProcessor.swift */,
+				92EB474024265BA000B79E46 /* OCRPostProcessor.swift */,
 			);
 			path = OCRService;
 			sourceTree = "<group>";
@@ -502,7 +502,7 @@
 				92E2014E240BEE780021CE0D /* StorageService.swift in Sources */,
 				9229D4792413E80900E52B68 /* CarPlateRecognitionView.swift in Sources */,
 				92048458240B13EE00A3035C /* CarDetailsView.swift in Sources */,
-				92EB474124265BA000B79E46 /* OCRTestPostProcessor.swift in Sources */,
+				92EB474124265BA000B79E46 /* OCRPostProcessor.swift in Sources */,
 				9229D4762413E77900E52B68 /* CarPlateRecognitionViewController.swift in Sources */,
 				92A00B6623F83EA30029C002 /* SearchListRow.swift in Sources */,
 				92413B3023FEBF7F00C9005A /* CarPlateView.swift in Sources */,

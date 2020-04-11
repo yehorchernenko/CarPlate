@@ -29,10 +29,10 @@ class OCRService: OCRServiceType {
         return textRecognitionRequest
     }()
 
-    var postProcessor: OCRTestPostProcessor
+    var postProcessor: OCRPostProcessor
     var completion: ((Result<[String], Error>) -> Void)?
 
-    init(postProcessor: OCRTestPostProcessor) {
+    init(postProcessor: OCRPostProcessor) {
         self.postProcessor = postProcessor
     }
 
