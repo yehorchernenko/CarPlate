@@ -15,7 +15,7 @@ struct NetworkAgent {
         let response: URLResponse
     }
     
-    func run<T: Decodable>(request: URLRequest) -> AnyPublisher<Response<T>, Error> {
+    func run<T: Decodable>(request: URLRequest) -> AnyPublisher<Response<T>, ServiceError> {
         return URLSession
             .shared
             .dataTaskPublisher(for: request)
@@ -23,9 +23,19 @@ struct NetworkAgent {
                 print(String(data: data, encoding: .utf8) ?? "")
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let value = try decoder.decode(T.self, from: data)
-                return Response(value: value, response: response)
+                do {
+                    let value = try decoder.decode(T.self, from: data)
+                    return Response(value: value, response: response)
+                } catch {
+                    throw try decoder.decode(ServiceError.self, from: data)
+                }
+        }.mapError { error in
+            if let serviceError = error as? ServiceError {
+                return serviceError
+            } else {
+                return ServiceError.unknown
             }
+        }
         .receive(on: DispatchQueue.main)
         .eraseToAnyPublisher()
     }

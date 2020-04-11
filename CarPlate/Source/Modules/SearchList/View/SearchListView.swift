@@ -116,6 +116,9 @@ struct SearchListView: View {
         .modifier(OnAppearDismissingKeyboard())
         .actionSheet(isPresented: $showActionSheet, content: { actionSheet })
         .sheet(isPresented: $showImagePicker, content: { self.imagePicker })
+        .alert(item: $viewModel.error) { error in
+            Alert(title: Text(error.title), message: Text(error.message))
+        }
     }
 }
 
@@ -130,9 +133,8 @@ private extension SearchListView {
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SearchListView(viewModel: SearchListViewModelMock()).colorScheme(.light)
-            SearchListView(viewModel: SearchListViewModelMock()).colorScheme(.dark)
+            SearchListView(viewModel: SearchListViewModel()).colorScheme(.light)
+            SearchListView(viewModel: SearchListViewModel()).colorScheme(.dark)
         }
-        
     }
 }

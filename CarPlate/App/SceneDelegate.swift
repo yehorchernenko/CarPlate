@@ -12,7 +12,6 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    let storageService = StorageService()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -25,9 +24,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
         
-        let searchService = SearchService(agent: NetworkAgent())
-        let viewModel = SearchListViewModel(searchService: searchService, storageService: storageService)
-        let contentView = SearchListView(viewModel: viewModel).environment(\.managedObjectContext, storageService.context)
+        let viewModel = SearchListViewModel()
+        let contentView = SearchListView(viewModel: viewModel)
+//            .environment(\.searchService)
+//            .environment(\.storageService)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -66,7 +66,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        try? storageService.context.save()
+
+        //try? storageService.context.save()
     }
 
 

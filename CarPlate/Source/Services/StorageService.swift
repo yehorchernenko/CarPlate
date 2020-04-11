@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 protocol StorageServiceType {
     func save(carInfo: CarInfo)
@@ -64,4 +65,15 @@ class StorageService: StorageServiceType {
     }
     
     
+}
+
+struct StorageServiceKey: EnvironmentKey {
+    static var defaultValue: StorageServiceType = StorageService()
+}
+
+extension EnvironmentValues {
+    var storageService: StorageServiceType {
+        get { self[StorageServiceKey.self] }
+        set { self[StorageServiceKey.self] = newValue }
+    }
 }
