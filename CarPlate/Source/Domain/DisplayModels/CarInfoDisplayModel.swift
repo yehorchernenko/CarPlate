@@ -33,7 +33,7 @@ struct CarInfoDisplayModel: Identifiable {
     
     var brand: String {
         if item.brand.valueOrEmpty.contains(item.model.valueOrEmpty) {
-            return item.brand.valueOrEmpty.replacingOccurrences(of: item.model.valueOrEmpty, with: "")
+            return item.brand.valueOrEmpty.replacingOccurrences(of: item.model.valueOrEmpty, with: "").trimmingCharacters(in: .whitespaces)
         } else {
             return item.brand.valueOrEmpty
         }
@@ -100,6 +100,8 @@ struct CarInfoDisplayModel: Identifiable {
         let type: String
         let value: String
     }
+
+    static var empty: Self = .init(item: .empty)
 
     static var fake: Self {
         return .init(item: .fake)

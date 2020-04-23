@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct CarDetailsView: View {
-    var details: CarInfoDisplayModel
+
+    @ObservedObject var viewModel: CarDetailsViewModel
 
     var topView: some View {
         VStack {
@@ -23,9 +24,9 @@ struct CarDetailsView: View {
                     Divider()
                 }.padding()
                 VStack(alignment: .trailing) {
-                    Text(details.brand)
-                    Text(details.model)
-                    Text(details.year)
+                    Text(viewModel.details.brand)
+                    Text(viewModel.details.model)
+                    Text(viewModel.details.year)
                 }.padding(.trailing)
             }
             Divider()
@@ -40,7 +41,7 @@ struct CarDetailsView: View {
             HStack {
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(details.characteristics, id: \.self) { item in
+                        ForEach(viewModel.details.characteristics, id: \.self) { item in
                             CarDetailsCarouselCell(item: item)
                         }
                     }
@@ -54,8 +55,11 @@ struct CarDetailsView: View {
         VStack {
             topView
             characteristicCarousel
+            Text(viewModel.searchText)
             Spacer()
-        }
+        }.onAppear(perform: {
+            self.viewModel.load()
+        })
         .padding()
         .background(Color.primary.colorInvert())
     }
@@ -63,6 +67,30 @@ struct CarDetailsView: View {
 
 struct CarDetails_Previews: PreviewProvider {
     static var previews: some View {
-        CarDetailsView(details: CarInfoDisplayModel(item: .fake))
+        CarDetailsView(viewModel: CarDetailsViewModel(recognizedText: .constant("")))
+    }
+}
+
+class CarDetailsViewModel: ObservableObject {
+    @Environment(\.searchService) var searchService: SearchServiceType
+    @Environment(\.storageService) var storageService: StorageServiceType
+
+    @Published var details: CarInfoDisplayModel = .empty
+    @Binding var searchText: String {
+        didSet {
+
+        }
+    }
+
+    init(recognizedText: Binding<String>) {
+        _searchText = recognizedText
+    }
+
+    func load() {
+        guard let carInfo = storageService.single(byNumber: searchText) else {
+            return
+        }
+
+        details = .init(item: carInfo)
     }
 }

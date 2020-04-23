@@ -11,11 +11,11 @@ import UIKit
 
 struct CarPlateRecognitionView: View {
     @Binding var image: UIImage?
-    @State var navigationTitle = "Recognizing…"
+    @State var recognizedText = "Recognizing…"
     
     var body: some View {
-        CarPlateViewControllerRepresentation(image: $image, navigationTitle: $navigationTitle)
-            .navigationBarTitle(navigationTitle)
+        CarPlateViewControllerRepresentation(image: $image, recognizedText: $recognizedText)
+            .navigationBarTitle(recognizedText)
     }
 }
 
@@ -28,7 +28,7 @@ struct CarplateRecognitionView_Previews: PreviewProvider {
 
 struct CarPlateViewControllerRepresentation: UIViewControllerRepresentable {
     @Binding var image: UIImage?
-    @Binding var navigationTitle: String
+    @Binding var recognizedText: String
 
     func updateUIViewController(_ uiViewController: CarPlateRecognitionContainerViewController, context: UIViewControllerRepresentableContext<CarPlateViewControllerRepresentation>) {
         
@@ -40,9 +40,9 @@ struct CarPlateViewControllerRepresentation: UIViewControllerRepresentable {
 
         let recognitionSb = UIStoryboard(name: String(describing: CarPlateRecognitionViewController.self), bundle: nil)
         let recognitionController = recognitionSb.instantiateInitialViewController() as! CarPlateRecognitionViewController
-        recognitionController.viewModel = CarPlateRecognitionViewModel(image: image!, navigationTitle: $navigationTitle)
+        recognitionController.viewModel = CarPlateRecognitionViewModel(image: image!, recognizedText: $recognizedText)
 
-        let detailsView = CarDetailsView(details: .fake)
+        let detailsView = CarDetailsView(viewModel: CarDetailsViewModel(recognizedText: .constant("")))
         let detailsViewController = UIHostingController(rootView: detailsView)
 
         containerController.recognitionViewController = recognitionController

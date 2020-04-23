@@ -13,6 +13,7 @@ import SwiftUI
 protocol StorageServiceType {
     func save(carInfo: CarInfo)
     func retrieve() -> [CarInfo]
+    func single(byNumber number: String) -> CarInfo?
 }
 
 class StorageService: StorageServiceType {
@@ -64,7 +65,20 @@ class StorageService: StorageServiceType {
         }
     }
     
-    
+    func single(byNumber number: String) -> CarInfo? {
+        let request = NSFetchRequest<CarInfoData>(entityName: String(describing: CarInfoData.self))
+
+        do {
+            let result = try context.fetch(request)
+            return result.compactMap {
+                guard let data = $0.data else { return nil }
+                return try? JSONDecoder().decode(CarInfo.self, from: data)
+            }.first(where: { $0.nRegNew == number})
+        } catch {
+            print("CoreData: retrieving error")
+            return nil
+        }
+    }
 }
 
 struct StorageServiceKey: EnvironmentKey {

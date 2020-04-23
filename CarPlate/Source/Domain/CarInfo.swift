@@ -86,6 +86,8 @@ struct CarInfo: Codable, Identifiable {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return try! decoder.decode([CarInfo].self, from: data).first!
     }
+
+    static var empty: Self = .fixture()
     
     static let data: Data = """
 [

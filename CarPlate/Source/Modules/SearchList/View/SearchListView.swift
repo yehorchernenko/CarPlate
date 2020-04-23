@@ -91,7 +91,7 @@ struct SearchListView: View {
             ScrollView {
                 searchBar
                 ForEach(viewModel.list) { item in
-                    NavigationLink(destination: CarDetailsView(details: item)) {
+                    NavigationLink(destination: CarDetailsView(viewModel: CarDetailsViewModel(recognizedText: .constant(item.carPlateNumber)))) {
                         SearchListRow(item: item)
                     }.buttonStyle(PlainButtonStyle())
                 }
