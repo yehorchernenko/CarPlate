@@ -37,13 +37,15 @@ struct CarPlateViewControllerRepresentation: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> CarPlateRecognitionContainerViewController {
         let containerSb = UIStoryboard(name: String(describing: CarPlateRecognitionContainerViewController.self), bundle: nil)
         let containerController = containerSb.instantiateInitialViewController() as! CarPlateRecognitionContainerViewController
-
         let recognitionSb = UIStoryboard(name: String(describing: CarPlateRecognitionViewController.self), bundle: nil)
-        let recognitionController = recognitionSb.instantiateInitialViewController() as! CarPlateRecognitionViewController
-        recognitionController.viewModel = CarPlateRecognitionViewModel(image: image!, recognizedText: $recognizedText)
 
-        let detailsView = CarDetailsView(viewModel: CarDetailsViewModel(recognizedText: .constant("")))
+        let detailsViewModel = CarDetailsViewModel(recognizedText: $recognizedText)
+        let detailsView = CarDetailsView(viewModel: detailsViewModel)
         let detailsViewController = UIHostingController(rootView: detailsView)
+
+        let recognitionController = recognitionSb.instantiateInitialViewController() as! CarPlateRecognitionViewController
+        let recognitionViewModel = CarPlateRecognitionViewModel(image: image!, recognizedText: $recognizedText, onTextRecognized: detailsViewModel.didUpdateSearchText)
+        recognitionController.viewModel = recognitionViewModel
 
         containerController.recognitionViewController = recognitionController
         containerController.detailInfoViewController = detailsViewController

@@ -20,7 +20,6 @@ class OCRService: OCRServiceType {
 
     lazy var textRecognitionRequest: VNRecognizeTextRequest = {
         let textRecognitionRequest = VNRecognizeTextRequest(completionHandler: self.handleDetectedText)
-        textRecognitionRequest.usesLanguageCorrection = false
         textRecognitionRequest.recognitionLanguages = ["ukr"] //language ISO code
         textRecognitionRequest.usesLanguageCorrection = false
         textRecognitionRequest.recognitionLevel = .fast

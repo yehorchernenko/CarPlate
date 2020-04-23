@@ -14,7 +14,6 @@ class SearchListViewModel: ObservableObject {
     @Environment(\.searchService) var searchService: SearchServiceType
     @Environment(\.storageService) var storageService: StorageServiceType
     private var token: Cancellable?
-    private var timer: Cancellable?
     @Published var list = [CarInfoDisplayModel]()
     @Published var searchText = ""
     @Published var isLoading = false
@@ -24,15 +23,6 @@ class SearchListViewModel: ObservableObject {
         isLoading.toggle()
         token?.cancel()
         token = searchService.search(byCarPlate: searchText.uppercased())
-            .compactMap { carInfo in
-                //save only if there is no duplication
-                let storedData = self.storageService.retrieve()
-                guard !storedData.contains(where: { $0.nRegNew == carInfo.nRegNew }) else {
-                    return nil
-                }
-                self.storageService.save(carInfo: carInfo)
-
-                return CarInfoDisplayModel(item: carInfo) }
             .sink(receiveCompletion: { completion in
 
                 switch completion {
@@ -43,8 +33,9 @@ class SearchListViewModel: ObservableObject {
                     break
                 }
                 self.isLoading.toggle()
-            }) { [weak self] info in
-                self?.list.append(info)
+            }) { [weak self] carInfo in
+                self?.list.append(CarInfoDisplayModel(item: carInfo))
+                self?.storageService.saveIfUnique(carInfo: carInfo)
         }
     }
     

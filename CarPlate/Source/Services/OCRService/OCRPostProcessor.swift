@@ -14,7 +14,14 @@ protocol OCRPostProcessor {
 
 class CarPlateOCRPostProcessor: OCRPostProcessor {
     func process(results: [VNRecognizedTextObservation]) -> [String] {
-        results.forEach { res in res.topCandidates(.max).forEach { text in print(text.string)}}
+        results.forEach { res in res.topCandidates(.max).forEach { text in
+            text.string.forEach { char in
+                print(char.asciiValue)
+                char.unicodeScalars.forEach { print($0.value)}
+            }
+
+            }
+        }
         return results.compactMap {
             guard let string = $0.topCandidates(1).first?.string else {
                 return nil

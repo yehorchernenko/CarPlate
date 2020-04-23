@@ -58,7 +58,7 @@ struct CarDetailsView: View {
             Text(viewModel.searchText)
             Spacer()
         }.onAppear(perform: {
-            self.viewModel.load()
+            self.viewModel.onViewAppear()
         })
         .padding()
         .background(Color.primary.colorInvert())
@@ -68,29 +68,5 @@ struct CarDetailsView: View {
 struct CarDetails_Previews: PreviewProvider {
     static var previews: some View {
         CarDetailsView(viewModel: CarDetailsViewModel(recognizedText: .constant("")))
-    }
-}
-
-class CarDetailsViewModel: ObservableObject {
-    @Environment(\.searchService) var searchService: SearchServiceType
-    @Environment(\.storageService) var storageService: StorageServiceType
-
-    @Published var details: CarInfoDisplayModel = .empty
-    @Binding var searchText: String {
-        didSet {
-
-        }
-    }
-
-    init(recognizedText: Binding<String>) {
-        _searchText = recognizedText
-    }
-
-    func load() {
-        guard let carInfo = storageService.single(byNumber: searchText) else {
-            return
-        }
-
-        details = .init(item: carInfo)
     }
 }

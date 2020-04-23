@@ -12,6 +12,7 @@ import SwiftUI
 
 protocol StorageServiceType {
     func save(carInfo: CarInfo)
+    func saveIfUnique(carInfo: CarInfo)
     func retrieve() -> [CarInfo]
     func single(byNumber number: String) -> CarInfo?
 }
@@ -48,6 +49,14 @@ class StorageService: StorageServiceType {
         } catch {
             print("CoreData: \(error)")
         }
+    }
+
+    func saveIfUnique(carInfo: CarInfo) {
+        let storedData = retrieve()
+        guard !storedData.contains(where: { $0.nRegNew == carInfo.nRegNew }) else {
+            return
+        }
+        save(carInfo: carInfo)
     }
     
     func retrieve() -> [CarInfo] {

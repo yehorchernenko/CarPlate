@@ -28,10 +28,12 @@ class CarPlateRecognitionViewModel {
     var normalizedImage: UIImage!
     @Published var state: State = .processing
     @Binding var recognizedText: String
+    var onTextRecognized: ((String) -> Void)
     
-    init(image: UIImage, recognizedText: Binding<String>) {
+    init(image: UIImage, recognizedText: Binding<String>, onTextRecognized: @escaping  ((String) -> Void)) {
         self.image = image
         _recognizedText = recognizedText
+        self.onTextRecognized = onTextRecognized
     }
 
     func viewDidLoad() {
@@ -88,6 +90,7 @@ class CarPlateRecognitionViewModel {
             guard let text = texts.first else { return }
             state = .showRecognizedText(text: text)
             recognizedText = text
+            onTextRecognized(text)
 
         case .failure(let error):
             state = .didReceiveError(message: error.localizedDescription)
