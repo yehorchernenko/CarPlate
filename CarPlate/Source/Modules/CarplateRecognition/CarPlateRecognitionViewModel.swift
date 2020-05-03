@@ -87,7 +87,11 @@ class CarPlateRecognitionViewModel {
     func didOCRHandler(_ result: Result<[String], Error>) {
         switch result {
         case .success(let texts):
-            guard let text = texts.first else { return }
+            guard let text = texts.first else {
+                state = .didReceiveError(message: "Our algorithm couldn't recgonize text.")
+                recognizedText = ""
+                return
+            }
             state = .showRecognizedText(text: text)
             recognizedText = text
             onTextRecognized(text)

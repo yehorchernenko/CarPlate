@@ -49,7 +49,7 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
             spinner.stopAnimating()
 
         case .didReceiveError(let message):
-            assertionFailure("Error message: \(message)")
+            showAlert(message: message)
 
         }
     }
@@ -176,5 +176,14 @@ class CarPlateRecognitionViewController: UIViewController, UIImagePickerControll
         layer.transform = CATransform3DMakeScale(1, -1, 1)
 
         return layer
+    }
+
+    func showAlert(message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+            //TODO: Add close screen
+        }))
+
+        present(alertController, animated: true)
     }
 }

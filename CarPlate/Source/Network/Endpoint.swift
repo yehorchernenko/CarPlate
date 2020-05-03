@@ -33,6 +33,6 @@ enum Endpoint {
     }
     
     private var basePath: String {
-        return "https://0969e24c.ngrok.io/"
+        return "https://7f710610.ngrok.io/"
     }
 }

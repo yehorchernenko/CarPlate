@@ -16,14 +16,16 @@ protocol OCRServiceType {
 class OCRService: OCRServiceType {
     enum OCRError: Error {
         case requestIsNil
+        case cgImageIsNil
     }
 
     lazy var textRecognitionRequest: VNRecognizeTextRequest = {
         let textRecognitionRequest = VNRecognizeTextRequest(completionHandler: self.handleDetectedText)
-        textRecognitionRequest.recognitionLanguages = ["ukr"] //language ISO code
+        textRecognitionRequest.recognitionLanguages = ["en-US"] //language ISO code
         textRecognitionRequest.usesLanguageCorrection = false
-        textRecognitionRequest.recognitionLevel = .fast
-        textRecognitionRequest.usesCPUOnly = true //better to use in real time request
+        textRecognitionRequest.minimumTextHeight = 0.3
+        textRecognitionRequest.recognitionLevel = .accurate
+        textRecognitionRequest.usesCPUOnly = false //better to use in real time request
 
         return textRecognitionRequest
     }()
@@ -41,7 +43,7 @@ class OCRService: OCRServiceType {
         // Convert from UIImageOrientation to CGImagePropertyOrientation.
         let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
         guard let cgImage = image.cgImage else {
-            //complete(.failure(RecognitionError.cgImageIsNil))
+            completion(.failure(OCRError.cgImageIsNil))
             return
         }
 
