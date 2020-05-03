@@ -15,6 +15,7 @@ struct CarDetailsView: View {
     var topView: some View {
         VStack {
             Text("Goverment register")
+                .fontWeight(.semibold)
             Divider()
             HStack {
                 Image("KIA")
@@ -51,17 +52,59 @@ struct CarDetailsView: View {
         }
     }
 
+    var region: some View {
+        VStack {
+            HStack {
+                Text(viewModel.details.region)
+                    .fontWeight(.heavy)
+                    .font(.system(size: 32))
+                VStack(alignment: .leading) {
+                    Text("Region name:")
+                        .fontWeight(.ultraLight)
+                    Text(viewModel.details.regionName)
+                }
+                .font(.system(size: 15))
+                Spacer()
+            }
+            Divider()
+        }
+    }
+
+    var lastRecord: some View {
+        VStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Last record by this license plate:")
+                        .fontWeight(.semibold)
+
+                    VStack(alignment: .leading) {
+                        Text(viewModel.details.lastRecord)
+                        HStack {
+                            Text("Recording date:")
+                                .fontWeight(.ultraLight)
+                            Text(viewModel.details.lastRecordDate)
+                        }
+                    }.padding(.leading, 4)
+                        .font(.system(size: 15))
+                }
+                Spacer()
+            }
+            Divider()
+        }
+    }
+
     var body: some View {
         VStack {
             topView
             characteristicCarousel
-            Text(viewModel.searchText)
+            region
+            lastRecord
             Spacer()
         }.onAppear(perform: {
             self.viewModel.onViewAppear()
         })
-        .padding()
-        .background(Color.primary.colorInvert())
+            .padding()
+            .background(Color.primary.colorInvert())
     }
 }
 

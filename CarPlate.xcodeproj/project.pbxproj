@@ -33,6 +33,7 @@
 		92A00B6623F83EA30029C002 /* SearchListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B6523F83EA30029C002 /* SearchListRow.swift */; };
 		92A00B6923F89CDE0029C002 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B6823F89CDE0029C002 /* String+Ext.swift */; };
 		92A00B6C23F8A2D40029C002 /* CarInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A00B6B23F8A2D40029C002 /* CarInfo.swift */; };
+		92A47AD3245F0FEC00318200 /* RegionsNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A47AD2245F0FEC00318200 /* RegionsNames.swift */; };
 		92B76B7624014D09003F2ACA /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B76B7524014D09003F2ACA /* SearchBar.swift */; };
 		92B76B7C24014ECD003F2ACA /* SearchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B76B7B24014ECD003F2ACA /* SearchListViewModel.swift */; };
 		92E2014B240BEA220021CE0D /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E2014A240BEA220021CE0D /* ActivityIndicator.swift */; };
@@ -94,6 +95,7 @@
 		92A00B6523F83EA30029C002 /* SearchListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListRow.swift; sourceTree = "<group>"; };
 		92A00B6823F89CDE0029C002 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		92A00B6B23F8A2D40029C002 /* CarInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarInfo.swift; sourceTree = "<group>"; };
+		92A47AD2245F0FEC00318200 /* RegionsNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionsNames.swift; sourceTree = "<group>"; };
 		92B76B7524014D09003F2ACA /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		92B76B7B24014ECD003F2ACA /* SearchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListViewModel.swift; sourceTree = "<group>"; };
 		92E2014A240BEA220021CE0D /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 		92A00B5B23F832DF0029C002 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				92A47AD1245F0FD300318200 /* Helpers */,
 				92E27EE52407BF1C009D3A8B /* Network */,
 				92E27EE22407BEEB009D3A8B /* Services */,
 				92A00B6A23F8A2C30029C002 /* Domain */,
@@ -288,6 +291,14 @@
 				92E9FF5A24406FCF001D9EFB /* ServiceError.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		92A47AD1245F0FD300318200 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				92A47AD2245F0FEC00318200 /* RegionsNames.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		92B76B7424014CEE003F2ACA /* SharedViews */ = {
@@ -500,6 +511,7 @@
 				92A00B6923F89CDE0029C002 /* String+Ext.swift in Sources */,
 				92B76B7C24014ECD003F2ACA /* SearchListViewModel.swift in Sources */,
 				9229D4712413CD1400E52B68 /* UIApplication+Ext.swift in Sources */,
+				92A47AD3245F0FEC00318200 /* RegionsNames.swift in Sources */,
 				92A00B6C23F8A2D40029C002 /* CarInfo.swift in Sources */,
 				92E9FF612440780E001D9EFB /* Optional+Err.swift in Sources */,
 				92F5E38C242C972900D912EA /* ARCarPlateRecognitionViewController.swift in Sources */,

@@ -13,7 +13,7 @@ class CarDetailsViewModel: ObservableObject {
     @Environment(\.searchService) var searchService: SearchServiceType
     @Environment(\.storageService) var storageService: StorageServiceType
     private var token: Cancellable?
-    @Published var details: CarInfoDisplayModel = .empty
+    @Published var details: CarInfoDisplayModel = .fake
     @Binding var searchText: String
 
     init(recognizedText: Binding<String>) {

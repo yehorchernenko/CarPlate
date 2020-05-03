@@ -84,7 +84,6 @@ struct CarInfoDisplayModel: Identifiable {
         return "Capacity: \(item.capacity.valueOrEmpty)"
     }
 
-
     var characteristics: [Characteristic] {
         return [
             Characteristic(imageName: "color-circle", type: "Color", value: color),
@@ -95,6 +94,24 @@ struct CarInfoDisplayModel: Identifiable {
 
         ]
     }
+
+    var lastRecord: String {
+        return item.operName.valueOrEmpty
+    }
+
+    var lastRecordDate: String {
+        return item.dReg.valueOrEmpty
+    }
+
+    var region: String {
+        let secondCharIndex = item.nRegNew.index(after: item.nRegNew.startIndex)
+        return String(item.nRegNew[item.nRegNew.startIndex...secondCharIndex])
+    }
+
+    var regionName: String {
+        return regionsNames[region].valueOrEmpty
+    }
+    
     struct Characteristic: Hashable {
         let imageName: String
         let type: String

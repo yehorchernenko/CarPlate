@@ -21,6 +21,7 @@ struct CarDetailsCarouselCell: View {
                     .fontWeight(.ultraLight)
                     .font(.system(size: 15))
                 Text(item.value)
+                    .font(.system(size: 15))
             }
         }
     }
