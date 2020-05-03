@@ -53,10 +53,10 @@ struct CarPlateView: View {
 struct CarPlateView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CarPlateView(number: "АХ 5141 НТ")
+            CarPlateView(number: "АА 0000 АА")
                 .previewLayout(.fixed(width: 200, height: 60))
                 .colorScheme(.light)
-            CarPlateView(number: "АХ 5141 НТ")
+            CarPlateView(number: "АА 0000 АА")
                 .colorScheme(.dark)
                 .background(Color.black)
                 .previewLayout(.fixed(width: 200, height: 60))

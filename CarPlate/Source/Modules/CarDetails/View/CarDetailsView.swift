@@ -16,6 +16,7 @@ struct CarDetailsView: View {
         VStack {
             Text("Goverment register")
                 .fontWeight(.semibold)
+            CarPlateView(number: viewModel.details.carPlateNumber)
             Divider()
             HStack {
                 Image("KIA")
@@ -89,22 +90,58 @@ struct CarDetailsView: View {
                 }
                 Spacer()
             }
+            Button(action: {
+                print("All records button touched")
+            }) {
+                HStack {
+                    Text("All records")
+                    Image(systemName: "chevron.right")
+                }
+            }
             Divider()
         }
     }
 
-    var body: some View {
+    var moreInfoButton: some View {
+        Button(action: {
+            self.viewModel.onMoreInfoTouched()
+        }) {
+            HStack {
+                Text("More info")
+                Image(systemName: "chevron.down")
+            }
+        }
+    }
+
+
+    var moreInfoView: some View {
         VStack {
-            topView
-            characteristicCarousel
-            region
-            lastRecord
-            Spacer()
-        }.onAppear(perform: {
-            self.viewModel.onViewAppear()
-        })
-            .padding()
-            .background(Color.primary.colorInvert())
+            Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+        }
+    }
+
+    var body: some View {
+        ScrollView {
+            ZStack {
+                VStack {
+                    topView
+                    characteristicCarousel
+                    region
+                    lastRecord
+                    if viewModel.shouldShowMoreDetails {
+                        moreInfoView
+                    } else {
+                        moreInfoButton
+                    }
+                    Spacer()
+                }.onAppear(perform: {
+                    self.viewModel.onViewAppear()
+                })
+                    .padding()
+                ActivityIndicator(isAnimating: $viewModel.isLoading)
+            }
+        }
+        .background(Color.primary.colorInvert())
     }
 }
 
