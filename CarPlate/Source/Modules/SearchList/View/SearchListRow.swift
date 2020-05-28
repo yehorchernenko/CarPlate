@@ -41,7 +41,7 @@ struct SearchListRow: View {
                     brandImage
                     carInfo
                 }
-                CarPlateView(number: item.carPlateNumber)
+                CarPlateView(number: item.formattedLicensePlate)
             }
             VStack(alignment: .leading, spacing: 4) {
                 Text(item.formattedColor)

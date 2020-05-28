@@ -32,7 +32,7 @@ struct CarDetailsView: View {
         VStack {
             Text("Goverment register")
                 .fontWeight(.semibold)
-            CarPlateView(number: viewModel.details.carPlateNumber)
+            CarPlateView(number: viewModel.details.formattedLicensePlate)
             Divider()
             HStack {
                 image
@@ -105,12 +105,14 @@ struct CarDetailsView: View {
                 Spacer()
             }
 
-            Button(action: {
-                self.viewModel.onAllRecordsTouched()
-            }) {
-                HStack {
-                    Text("All records")
-                    Image(systemName: "chevron.right")
+            if viewModel.isShowAllRecordsVisible {
+                Button(action: {
+                    self.viewModel.onAllRecordsTouched()
+                }) {
+                    HStack {
+                        Text("All records")
+                        Image(systemName: "chevron.right")
+                    }
                 }
             }
 
@@ -164,16 +166,7 @@ struct CarDetailsView: View {
     var navigationLinks: some View {
         Group {
             NavigationLink(destination:
-                //extract to new file
-                ScrollView {
-                    ForEach(viewModel.allRecords) { item in
-                        NavigationLink(destination: CarDetailsView(viewModel: CarDetailsViewModel(carPlateNumber: .constant(item.carPlateNumber)))) {
-                            SearchListRow(item: item)
-                        }.buttonStyle(PlainButtonStyle())
-                    }
-                    .background(Color.searchListViewBg)
-                    .padding([.leading, .trailing])
-                }
+                HistoryList(records: viewModel.allRecords)
                 , isActive: $viewModel.shouldShowAllRecords, label: { EmptyView() })
         }
     }

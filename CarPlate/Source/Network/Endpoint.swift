@@ -9,14 +9,18 @@
 import Foundation
 
 enum Endpoint {
-    case search(byCarPlate: String)
+    case searchByCarPlate(carPlate: String)
+    case searchById(id: Int)
     case searchMany(byCarPlate: String)
     
     var urlPath: String {
         var path: String
         switch self {
-        case .search:
+        case .searchByCarPlate:
             path = "search"
+
+        case .searchById(let id):
+            path = "search/byId/\(id)"
 
         case .searchMany:
             path = "search/all"
@@ -28,8 +32,12 @@ enum Endpoint {
         var urlComponents = URLComponents(string: urlPath)!
         var request: URLRequest
         switch self {
-        case .search(let carPlate):
+        case .searchByCarPlate(let carPlate):
             urlComponents.queryItems = [URLQueryItem(name: "carPlate", value: carPlate)]
+            request = URLRequest(url: urlComponents.url!)
+            request.httpMethod = "GET"
+
+        case .searchById:
             request = URLRequest(url: urlComponents.url!)
             request.httpMethod = "GET"
 
@@ -42,6 +50,6 @@ enum Endpoint {
     }
     
     private var basePath: String {
-        return "https://5f0a21bc7e54.ngrok.io/"
+        return "https://172b44e488fe.ngrok.io/"
     }
 }

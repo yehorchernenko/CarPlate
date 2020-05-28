@@ -29,10 +29,7 @@ struct CarInfo: Codable, Identifiable {
     let totalWeight: String?
     let brandImageURL: String?
     let nRegNew: String
-    
-    var id: String {
-        return nRegNew
-    }
+    let id: Int
     
     static func fixture(
         person: String? = nil,
@@ -54,7 +51,8 @@ struct CarInfo: Codable, Identifiable {
         ownWeight: String? = nil,
         totalWeight: String? = nil,
         brandImageURL: String? = nil,
-        nRegNew: String = "") -> CarInfo {
+        nRegNew: String = "",
+        id: Int = 0) -> CarInfo {
         return .init(
             person: person,
             regAddrKoatuu: regAddrKoatuu,
@@ -75,7 +73,8 @@ struct CarInfo: Codable, Identifiable {
             ownWeight: ownWeight,
             totalWeight: totalWeight,
             brandImageURL: brandImageURL,
-            nRegNew: nRegNew)
+            nRegNew: nRegNew,
+            id: 0)
     }
     
     static var fakeList: [Self] {
@@ -113,7 +112,8 @@ struct CarInfo: Codable, Identifiable {
   "capacity": "1396",
   "own_weight": "1160",
   "total_weight": "1565",
-  "n_reg_new": "АХ5141НТ"
+  "n_reg_new": "АХ5141НТ",
+  "id": 0
 },
 {
   "person": "P",
@@ -134,7 +134,8 @@ struct CarInfo: Codable, Identifiable {
   "capacity": "1984",
   "own_weight": "1272",
   "total_weight": "1960",
-  "n_reg_new": "АХ5140НТ"
+  "n_reg_new": "АХ5140НТ",
+  "id": 0
 }
 ]
 """.data(using: .utf8)!

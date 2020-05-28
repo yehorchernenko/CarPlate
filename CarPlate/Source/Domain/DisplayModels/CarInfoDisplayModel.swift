@@ -14,6 +14,10 @@ struct CarInfoDisplayModel: Identifiable {
     init(item: CarInfo) {
         self.item = item
     }
+
+    var dbId: Int {
+        return item.id
+    }
     
     var id: String {
         return "\(item.nRegNew)\(item.dReg.valueOrEmpty)"
@@ -110,6 +114,17 @@ struct CarInfoDisplayModel: Identifiable {
 
     var regionName: String {
         return regionsNames[region].valueOrEmpty
+    }
+
+    var formattedLicensePlate: String {
+        let secondCharIndex = item.nRegNew.index(after: item.nRegNew.index(after: item.nRegNew.startIndex))
+        var formattedLicensePlate = item.nRegNew
+        formattedLicensePlate.insert(" ", at: secondCharIndex)
+
+        let beforeLastCharIndex = formattedLicensePlate.index(before: formattedLicensePlate.index(before: formattedLicensePlate.endIndex))
+        formattedLicensePlate.insert(" ", at: beforeLastCharIndex)
+
+        return formattedLicensePlate
     }
 
     var brandImageUrl: URL? {

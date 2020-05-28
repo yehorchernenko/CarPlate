@@ -18,6 +18,7 @@ class CarDetailsViewModel: ObservableObject {
     @Published var allRecords: [CarInfoDisplayModel] = []
     @Binding var searchText: String
     @Published var isLoading: Bool = false
+    @Published var isShowAllRecordsVisible: Bool = true
     @Published var shouldShowMoreDetails: Bool = false
     @Published var shouldShowAllRecords: Bool = false
     
@@ -73,13 +74,11 @@ class CarDetailsViewModel: ObservableObject {
                 self.isLoading.toggle()
             }) { [weak self] allRecords in
                 self?.allRecords = allRecords.compactMap { CarInfoDisplayModel(item: $0)}
-                //self?.isLoading.toggle()
+                self?.isLoading.toggle()
                 self?.shouldShowAllRecords.toggle()
         }
     }
-}
 
-private extension CarDetailsViewModel {
     func loadFromStorage() {
         guard let carInfo = storageService.single(byNumber: searchText) else {
             return
