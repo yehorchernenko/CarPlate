@@ -12,34 +12,38 @@ import Combine
 class CarDetailsViewModel: ObservableObject {
     @Environment(\.searchService) var searchService: SearchServiceType
     @Environment(\.storageService) var storageService: StorageServiceType
-    private var token: Cancellable?
+    private var searchToken: Cancellable?
+    private var searchManyToken: Cancellable?
     @Published var details: CarInfoDisplayModel = .fake
+    @Published var allRecords: [CarInfoDisplayModel] = []
     @Binding var searchText: String
     @Published var isLoading: Bool = false
     @Published var shouldShowMoreDetails: Bool = false
-
+    @Published var shouldShowAllRecords: Bool = false
     
-    init(recognizedText: Binding<String>) {
-        _searchText = recognizedText
+    init(carPlateNumber: Binding<String>) {
+        _searchText = carPlateNumber
     }
 
     func didUpdateSearchText(_ searchText: String) {
         isLoading.toggle()
-        token?.cancel()
-        token = searchService.search(byCarPlate: searchText.uppercased()).sink(receiveCompletion: { completion in
-            switch completion {
-            case .failure(let error):
-                //self.toggleError(error)
-                break
+        searchToken?.cancel()
+        searchToken = searchService
+            .search(byCarPlate: searchText.uppercased())
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    //self.toggleError(error)
+                    break
 
-            case .finished:
-                break
-            }
-            self.isLoading.toggle()
-        }) { [weak self] carInfo in
-            self?.details = CarInfoDisplayModel(item: carInfo)
-            self?.storageService.saveIfUnique(carInfo: carInfo)
-            self?.isLoading.toggle()
+                case .finished:
+                    break
+                }
+                self.isLoading.toggle()
+            }) { [weak self] carInfo in
+                self?.details = CarInfoDisplayModel(item: carInfo)
+                self?.storageService.saveIfUnique(carInfo: carInfo)
+                self?.isLoading.toggle()
         }
     }
 
@@ -51,6 +55,27 @@ class CarDetailsViewModel: ObservableObject {
     func onMoreInfoTouched() {
         shouldShowMoreDetails.toggle()
         isLoading.toggle()
+    }
+
+    func onAllRecordsTouched() {
+        isLoading.toggle()
+        searchManyToken = searchService
+            .searchMany(byCarPlate: searchText.uppercased())
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    //self.toggleError(error)
+                    break
+
+                case .finished:
+                    break
+                }
+                self.isLoading.toggle()
+            }) { [weak self] allRecords in
+                self?.allRecords = allRecords.compactMap { CarInfoDisplayModel(item: $0)}
+                //self?.isLoading.toggle()
+                self?.shouldShowAllRecords.toggle()
+        }
     }
 }
 

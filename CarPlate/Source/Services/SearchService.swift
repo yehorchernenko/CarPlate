@@ -12,6 +12,7 @@ import SwiftUI
 
 protocol SearchServiceType {
     func search(byCarPlate carPlate: String) -> AnyPublisher<CarInfo, ServiceError>
+    func searchMany(byCarPlate carPlate: String) -> AnyPublisher<[CarInfo], ServiceError>
 }
 
 class SearchService: SearchServiceType {
@@ -23,6 +24,11 @@ class SearchService: SearchServiceType {
     
     func search(byCarPlate carPlate: String) -> AnyPublisher<CarInfo, ServiceError> {
         let request = Endpoint.search(byCarPlate: carPlate).request
+        return agent.run(request: request).map(\.value).eraseToAnyPublisher()
+    }
+
+    func searchMany(byCarPlate carPlate: String) -> AnyPublisher<[CarInfo], ServiceError> {
+        let request = Endpoint.searchMany(byCarPlate: carPlate).request
         return agent.run(request: request).map(\.value).eraseToAnyPublisher()
     }
 }

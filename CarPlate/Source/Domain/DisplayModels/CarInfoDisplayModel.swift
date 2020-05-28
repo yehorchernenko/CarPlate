@@ -111,6 +111,11 @@ struct CarInfoDisplayModel: Identifiable {
     var regionName: String {
         return regionsNames[region].valueOrEmpty
     }
+
+    var brandImageUrl: URL? {
+        guard let imagePath = item.brandImageURL else { return nil }
+        return URL(string: imagePath)
+    }
     
     struct Characteristic: Hashable {
         let imageName: String

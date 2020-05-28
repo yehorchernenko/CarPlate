@@ -39,7 +39,7 @@ struct CarPlateViewControllerRepresentation: UIViewControllerRepresentable {
         let containerController = containerSb.instantiateInitialViewController() as! CarPlateRecognitionContainerViewController
         let recognitionSb = UIStoryboard(name: String(describing: CarPlateRecognitionViewController.self), bundle: nil)
 
-        let detailsViewModel = CarDetailsViewModel(recognizedText: $recognizedText)
+        let detailsViewModel = CarDetailsViewModel(carPlateNumber: $recognizedText)
         let detailsView = CarDetailsView(viewModel: detailsViewModel)
         let detailsViewController = UIHostingController(rootView: detailsView)
 

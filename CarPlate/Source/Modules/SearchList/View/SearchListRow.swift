@@ -9,8 +9,24 @@
 import SwiftUI
 
 struct SearchListRow: View {
+    @Environment(\.imageCache) var cache: ImageCache
     let item: CarInfoDisplayModel
-    
+
+    var brandImage: some View {
+        AsyncImage(url: item.brandImageUrl,
+                   placeholder: Image(Assets.CarPlaceholder)
+                    .resizable()
+                    .frame(width: 30, height: 30),
+                   cache: cache,
+                   configuration: { image in
+                    AnyView(image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .scaleEffect(2))
+
+        })
+            .frame(width: 30, height: 30)
+    }
     var carInfo: some View {
         HStack {
             Text("\(item.name)")
@@ -22,9 +38,7 @@ struct SearchListRow: View {
         HStack {
             VStack(alignment: .leading) {
                 HStack {
-                    Image("KIA")
-                        .resizable().scaledToFit()
-                        .frame(width: 30, height: 30)
+                    brandImage
                     carInfo
                 }
                 CarPlateView(number: item.carPlateNumber)
@@ -48,7 +62,7 @@ struct SearchListRow_Previews: PreviewProvider {
             SearchListRow(item: CarInfoDisplayModel(item: .fixture())).colorScheme(.light)
                 .padding()
             SearchListRow(item: CarInfoDisplayModel(item: .fixture())).colorScheme(.dark)
-            .padding()
+                .padding()
         }
         .previewLayout(.fixed(width: 350, height: 100))
     }

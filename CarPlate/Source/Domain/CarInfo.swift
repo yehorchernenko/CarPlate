@@ -27,6 +27,7 @@ struct CarInfo: Codable, Identifiable {
     let capacity: String?
     let ownWeight: String?
     let totalWeight: String?
+    let brandImageURL: String?
     let nRegNew: String
     
     var id: String {
@@ -52,6 +53,7 @@ struct CarInfo: Codable, Identifiable {
         capacity: String? = nil,
         ownWeight: String? = nil,
         totalWeight: String? = nil,
+        brandImageURL: String? = nil,
         nRegNew: String = "") -> CarInfo {
         return .init(
             person: person,
@@ -72,6 +74,7 @@ struct CarInfo: Codable, Identifiable {
             capacity: capacity,
             ownWeight: ownWeight,
             totalWeight: totalWeight,
+            brandImageURL: brandImageURL,
             nRegNew: nRegNew)
     }
     

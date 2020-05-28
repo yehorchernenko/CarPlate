@@ -9,8 +9,24 @@
 import SwiftUI
 
 struct CarDetailsView: View {
-
+    @Environment(\.imageCache) var cache: ImageCache
     @ObservedObject var viewModel: CarDetailsViewModel
+
+    var image: some View {
+        AsyncImage(url: viewModel.details.brandImageUrl,
+                   placeholder: Image(Assets.CarPlaceholder)
+                    .resizable()
+                    .frame(width: 80, height: 80),
+                   cache: cache,
+                   configuration: { image in
+                    AnyView(image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .scaleEffect(2))
+                    
+        })
+            .frame(width: 80, height: 80)
+    }
 
     var topView: some View {
         VStack {
@@ -19,9 +35,7 @@ struct CarDetailsView: View {
             CarPlateView(number: viewModel.details.carPlateNumber)
             Divider()
             HStack {
-                Image("KIA")
-                    .resizable().scaledToFit()
-                    .frame(width: 80, height: 80)
+                image
                 VStack {
                     Divider()
                 }.padding()
@@ -90,14 +104,16 @@ struct CarDetailsView: View {
                 }
                 Spacer()
             }
+
             Button(action: {
-                print("All records button touched")
+                self.viewModel.onAllRecordsTouched()
             }) {
                 HStack {
                     Text("All records")
                     Image(systemName: "chevron.right")
                 }
             }
+
             Divider()
         }
     }
@@ -140,13 +156,31 @@ struct CarDetailsView: View {
                     .padding()
                 ActivityIndicator(isAnimating: $viewModel.isLoading)
             }
+            navigationLinks
         }
         .background(Color.primary.colorInvert())
+    }
+
+    var navigationLinks: some View {
+        Group {
+            NavigationLink(destination:
+                //extract to new file
+                ScrollView {
+                    ForEach(viewModel.allRecords) { item in
+                        NavigationLink(destination: CarDetailsView(viewModel: CarDetailsViewModel(carPlateNumber: .constant(item.carPlateNumber)))) {
+                            SearchListRow(item: item)
+                        }.buttonStyle(PlainButtonStyle())
+                    }
+                    .background(Color.searchListViewBg)
+                    .padding([.leading, .trailing])
+                }
+                , isActive: $viewModel.shouldShowAllRecords, label: { EmptyView() })
+        }
     }
 }
 
 struct CarDetails_Previews: PreviewProvider {
     static var previews: some View {
-        CarDetailsView(viewModel: CarDetailsViewModel(recognizedText: .constant("")))
+        CarDetailsView(viewModel: CarDetailsViewModel(carPlateNumber: .constant("")))
     }
 }
