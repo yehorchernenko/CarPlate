@@ -120,21 +120,52 @@ struct CarDetailsView: View {
         }
     }
 
+    var policyButton: some View {
+        VStack {
+            Button(action: {
+                self.viewModel.onPolicyButtonTouched()
+            }) {
+                HStack {
+                    Text("Check policy")
+                    Image(systemName: "chevron.right")
+                }
+            }
+            Divider()
+        }
+    }
+
     var moreInfoButton: some View {
         Button(action: {
             self.viewModel.onMoreInfoTouched()
         }) {
             HStack {
+
                 Text("More info")
                 Image(systemName: "chevron.down")
             }
         }
     }
 
-
     var moreInfoView: some View {
         VStack {
-            Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+            HStack {
+                Image("vin")
+                    .resizable().scaledToFit()
+                    .frame(width: 40, height: 40)
+                Text(viewModel.extendedDetails.vin)
+                    .font(.system(size: 15))
+                Spacer()
+            }
+            if viewModel.extendedDetails.estimatedPrice.isNotNil {
+                HStack {
+                    Image("price")
+                        .resizable().scaledToFit()
+                        .frame(width: 40, height: 40)
+                    Text(viewModel.extendedDetails.estimatedPrice.valueOrEmpty)
+                        .font(.system(size: 15))
+                    Spacer()
+                }
+            }
         }
     }
 
@@ -146,6 +177,7 @@ struct CarDetailsView: View {
                     characteristicCarousel
                     region
                     lastRecord
+                    policyButton
                     if viewModel.shouldShowMoreDetails {
                         moreInfoView
                     } else {
@@ -167,13 +199,45 @@ struct CarDetailsView: View {
         Group {
             NavigationLink(destination:
                 HistoryList(records: viewModel.allRecords)
-                , isActive: $viewModel.shouldShowAllRecords, label: { EmptyView() })
+                , isActive: $viewModel.isAllRecordsLinkActive, label: { EmptyView() })
+
+            NavigationLink(destination:
+                PolicyView(viewModel: PolicyViewModel(carPlateNumber: viewModel.details.carPlateNumber))
+                , isActive: $viewModel.isPolicyLinkActive, label: { EmptyView() })
         }
     }
 }
 
 struct CarDetails_Previews: PreviewProvider {
     static var previews: some View {
-        CarDetailsView(viewModel: CarDetailsViewModel(carPlateNumber: .constant("")))
+        Group {
+            CarDetailsView(viewModel: CarDetailsViewModel_Previews(carPlateNumber: .constant("")))
+            CarDetailsView(viewModel: CarDetailsViewModel_Previews(carPlateNumber: .constant(""))).colorScheme(.dark)
+        }
+    }
+}
+
+private class CarDetailsViewModel_Previews: CarDetailsViewModel {
+
+    override func onViewAppear() {
+        details = .fake
+        shouldShowMoreDetails = true
+    }
+
+    override func didUpdateSearchText(_ searchText: String) {
+        details = .fake
+    }
+
+    override func onMoreInfoTouched() {
+        extendedDetails = .fake
+        shouldShowMoreDetails = true
+    }
+
+    override func onAllRecordsTouched() {
+
+    }
+
+    override func loadFromStorage() {
+        details = .fake
     }
 }

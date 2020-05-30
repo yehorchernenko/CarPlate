@@ -108,6 +108,8 @@ struct CarInfoDisplayModel: Identifiable {
     }
 
     var region: String {
+        guard item.nRegNew.count >= 8 else { return "" }
+        
         let secondCharIndex = item.nRegNew.index(after: item.nRegNew.startIndex)
         return String(item.nRegNew[item.nRegNew.startIndex...secondCharIndex])
     }
@@ -117,6 +119,8 @@ struct CarInfoDisplayModel: Identifiable {
     }
 
     var formattedLicensePlate: String {
+        guard item.nRegNew.count >= 8 else { return "" }
+
         let secondCharIndex = item.nRegNew.index(after: item.nRegNew.index(after: item.nRegNew.startIndex))
         var formattedLicensePlate = item.nRegNew
         formattedLicensePlate.insert(" ", at: secondCharIndex)

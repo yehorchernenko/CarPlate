@@ -14,6 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     let searchService = SearchService(agent: NetworkAgent())
     let storageService = StorageService()
+    let helperService = HelperService(agent: NetworkAgent())
     let imageCache = TemporaryImageCache()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -31,6 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let contentView = SearchListView(viewModel: viewModel)
             .environment(\.searchService, searchService)
             .environment(\.storageService, storageService)
+            .environment(\.helperService, helperService)
             .environment(\.imageCache, imageCache)
 
 

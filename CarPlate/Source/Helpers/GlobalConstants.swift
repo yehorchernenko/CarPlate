@@ -11,3 +11,11 @@ import UIKit
 enum Assets {
     static let CarPlaceholder = "car-placeholder"
 }
+
+struct ServerConstants {
+    static var serverPath: String {
+        let path = Bundle.main.infoDictionary?["ServerURL"] as! String
+
+        return path.replacingOccurrences(of: "\\", with: "")
+    }
+}

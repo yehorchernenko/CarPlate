@@ -8,10 +8,11 @@
 
 import Foundation
 
-enum Endpoint {
+enum SearchEndpoint {
     case searchByCarPlate(carPlate: String)
     case searchById(id: Int)
     case searchMany(byCarPlate: String)
+    case more(byCarPlate: String)
     
     var urlPath: String {
         var path: String
@@ -24,7 +25,11 @@ enum Endpoint {
 
         case .searchMany:
             path = "search/all"
+
+        case .more:
+            path = "search/more"
         }
+
         return basePath + path
     }
     
@@ -45,11 +50,16 @@ enum Endpoint {
             urlComponents.queryItems = [URLQueryItem(name: "carPlate", value: carPlate)]
             request = URLRequest(url: urlComponents.url!)
             request.httpMethod = "GET"
+
+        case .more(let carPlate):
+            urlComponents.queryItems = [URLQueryItem(name: "carPlate", value: carPlate)]
+            request = URLRequest(url: urlComponents.url!)
+            request.httpMethod = "GET"
         }
         return request
     }
     
     private var basePath: String {
-        return "https://172b44e488fe.ngrok.io/"
+        return ServerConstants.serverPath
     }
 }

@@ -1,0 +1,13 @@
+//
+//  Debug.xcconfig
+//  CarPlate
+//
+//  Created by Yehor Chernenko on 30.05.2020.
+//  Copyright © 2020 Yehor Chernenko. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+SERVER_URL = https:\/\/06b504a5b7c6.ngrok.io/
+
