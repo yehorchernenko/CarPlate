@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  CarPlate
+
+  Created by Yehor Chernenko on 10.06.2020.
+  Copyright © 2020 Yehor Chernenko. All rights reserved.
+*/
+
+"search.nav.title" = "Пошук за номером";
+"search.cell.color" = "Колір:";
+"search.cell.year" = "Рік:";
+"search.cell.capacity" = "Об'єм";
+
+"details.title" = "Державний номер реєстрації";

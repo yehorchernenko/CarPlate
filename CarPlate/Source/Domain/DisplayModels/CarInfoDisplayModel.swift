@@ -77,15 +77,15 @@ struct CarInfoDisplayModel: Identifiable {
     }
 
     var formattedColor: String {
-        return "Colour: \(color)"
+        return "\(NSLocalizedString("search.cell.color", comment: "")) \(color)"
     }
     
     var formattedYear: String {
-        return "Year: \(year)"
+        return "\(NSLocalizedString("search.cell.year", comment: "")) \(year)"
     }
     
     var formattedCapacity: String {
-        return "Capacity: \(item.capacity.valueOrEmpty)"
+        return "\(NSLocalizedString("search.cell.capacity", comment: "")) \(item.capacity.valueOrEmpty)"
     }
 
     var characteristics: [Characteristic] {

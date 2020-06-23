@@ -108,7 +108,7 @@ struct SearchListView: View {
                 ActivityIndicator(isAnimating: $viewModel.isLoading)
                 navigationLinks
             }
-            .navigationBarTitle("Search by carplate", displayMode: .inline)
+            .navigationBarTitle(Translation.searchNavTitle, displayMode: .inline)
         }
         .onAppear {
             self.viewModel.load()

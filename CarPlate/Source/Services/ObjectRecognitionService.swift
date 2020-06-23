@@ -16,13 +16,15 @@ protocol ObjectRecognitionServiceType {
 
 class ObjectRecognitionService: ObjectRecognitionServiceType {
     static let carPlateModel = try? VNCoreMLModel(for: CarPlateDetector().model)
+
     lazy var coreMLRequest: VNCoreMLRequest = {
         guard let model = ObjectRecognitionService.carPlateModel else {
             complete(.failure(RecognitionError.unableToInitializeCoreMLModel))
             fatalError()
         }
 
-        return VNCoreMLRequest(model: model, completionHandler: self.coreMlRequestHandler)
+        return VNCoreMLRequest(model: model,
+                               completionHandler: self.coreMlRequestHandler)
     }()
 
     var completion: ((Result<[CGRect], Error>) -> Void)?

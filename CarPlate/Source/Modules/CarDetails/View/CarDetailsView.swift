@@ -30,7 +30,7 @@ struct CarDetailsView: View {
 
     var topView: some View {
         VStack {
-            Text("Goverment register")
+            Text(Translation.detailsTitle)
                 .fontWeight(.semibold)
             CarPlateView(number: viewModel.details.formattedLicensePlate)
             Divider()

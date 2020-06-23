@@ -9,5 +9,4 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-SERVER_URL = https:\/\/06b504a5b7c6.ngrok.io/
-
+SERVER_URL = https:\/\/dd00fee40c51.ngrok.io/
