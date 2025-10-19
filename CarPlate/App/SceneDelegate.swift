@@ -12,29 +12,14 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    let searchService = SearchService(agent: NetworkAgent())
-    let storageService = StorageService()
-    let helperService = HelperService(agent: NetworkAgent())
-    let imageCache = TemporaryImageCache()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
-        // Get the managed object context from the shared persistent container.
-        //let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
-        // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
-        // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
-        
-        let viewModel = SearchListViewModel()
-        let contentView = SearchListView(viewModel: viewModel)
-            .environment(\.searchService, searchService)
-            .environment(\.storageService, storageService)
-            .environment(\.helperService, helperService)
-            .environment(\.imageCache, imageCache)
-
+        // Create the SwiftUI view for License Plate Recognition
+        let contentView = CameraPickerView()
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

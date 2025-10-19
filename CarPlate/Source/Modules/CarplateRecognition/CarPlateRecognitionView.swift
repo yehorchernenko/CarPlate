@@ -30,27 +30,18 @@ struct CarPlateViewControllerRepresentation: UIViewControllerRepresentable {
     @Binding var image: UIImage?
     @Binding var recognizedText: String
 
-    func updateUIViewController(_ uiViewController: CarPlateRecognitionContainerViewController, context: UIViewControllerRepresentableContext<CarPlateViewControllerRepresentation>) {
+    func updateUIViewController(_ uiViewController: CarPlateRecognitionViewController, context: UIViewControllerRepresentableContext<CarPlateViewControllerRepresentation>) {
         
     }
     
-    func makeUIViewController(context: Context) -> CarPlateRecognitionContainerViewController {
-        let containerSb = UIStoryboard(name: String(describing: CarPlateRecognitionContainerViewController.self), bundle: nil)
-        let containerController = containerSb.instantiateInitialViewController() as! CarPlateRecognitionContainerViewController
+    func makeUIViewController(context: Context) -> CarPlateRecognitionViewController {
         let recognitionSb = UIStoryboard(name: String(describing: CarPlateRecognitionViewController.self), bundle: nil)
 
-        let detailsViewModel = CarDetailsViewModel(carPlateNumber: $recognizedText)
-        let detailsView = CarDetailsView(viewModel: detailsViewModel)
-        let detailsViewController = UIHostingController(rootView: detailsView)
-
         let recognitionController = recognitionSb.instantiateInitialViewController() as! CarPlateRecognitionViewController
-        let recognitionViewModel = CarPlateRecognitionViewModel(image: image!, recognizedText: $recognizedText, onTextRecognized: detailsViewModel.didUpdateSearchText)
+        let recognitionViewModel = CarPlateRecognitionViewModel(image: image!, recognizedText: $recognizedText, onTextRecognized: { _ in })
         recognitionController.viewModel = recognitionViewModel
-
-        containerController.recognitionViewController = recognitionController
-        containerController.detailInfoViewController = detailsViewController
         
-        return containerController
+        return recognitionController
     }
     
 }
