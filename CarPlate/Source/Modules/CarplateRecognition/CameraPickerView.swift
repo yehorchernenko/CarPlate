@@ -7,10 +7,21 @@
 
 import SwiftUI
 
+enum ImagePickerSourceType: Identifiable {
+    case camera
+    case photoLibrary
+    
+    var id: Int {
+        switch self {
+        case .camera: return 0
+        case .photoLibrary: return 1
+        }
+    }
+}
+
 struct CameraPickerView: View {
-    @State private var showImagePicker = false
+    @State private var pickerSourceType: ImagePickerSourceType?
     @State private var selectedImage: UIImage?
-    @State private var showCamera = true
     @State private var isShowingRecognition = false
     
     var body: some View {
@@ -26,8 +37,7 @@ struct CameraPickerView: View {
                 
                 VStack(spacing: 15) {
                     Button(action: {
-                        showCamera = true
-                        showImagePicker = true
+                        pickerSourceType = .camera
                     }) {
                         HStack {
                             Image(systemName: "camera.fill")
@@ -41,8 +51,7 @@ struct CameraPickerView: View {
                     }
                     
                     Button(action: {
-                        showCamera = false
-                        showImagePicker = true
+                        pickerSourceType = .photoLibrary
                     }) {
                         HStack {
                             Image(systemName: "photo.fill")
@@ -81,10 +90,10 @@ struct CameraPickerView: View {
                 Spacer()
             }
             .navigationTitle("License Plate Scanner")
-            .sheet(isPresented: $showImagePicker) {
+            .sheet(item: $pickerSourceType) { sourceType in
                 ImagePickerWrapper(
                     image: $selectedImage,
-                    sourceType: showCamera ? .camera : .photoLibrary
+                    sourceType: sourceType == .camera ? .camera : .photoLibrary
                 )
             }
         }
